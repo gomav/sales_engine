@@ -5,7 +5,7 @@ require_relative 'test_helper'
 class MerchantRespositoryTest < Minitest::Test
 
   def setup
-    merchant_repo = MerchantRespository.new
+    merchant_repo = MerchantRepository.new
     @merchant = merchant_repo[0]
   end
 
