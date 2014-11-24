@@ -1,2 +1,2 @@
-require_relative 'item'
+require_relative '../lib/item'
 require_relative 'test_helper'
