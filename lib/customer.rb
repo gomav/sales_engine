@@ -1,9 +1,11 @@
-require_relative 'customer_entry'
+class Customer
+  attr_reader :id, :first_name, :last_name, :created_at, :updated_at
 
-class CustomerRespository
-
-  def initialize(customers)
-    customers ||= customers.map {|customer| Customer.new(customer)}
+  def initialize(data)
+    @id = data[:id]
+    @first_name = data[:first_name]
+    @last_name = data[:last_name]
+    @created_at = data[:created_at]
+    @updated_at = data[:updated_at]
   end
-
 end

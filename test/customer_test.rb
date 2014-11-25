@@ -1,15 +1,22 @@
 require_relative '../lib/customer'
 require_relative 'test_helper'
 
-class CustomerRespositoryTest < Minitest::Test
+class CustomerTest < Minitest::Test
 
-  def setup
-    customer_repo = CustomerRepository.new
-    @customer = customer_repo[0]
+  def test_customer_attributes
+    data = {
+      id: 45,
+      first_name: "bob",
+      last_name: "jones",
+      created_at: "2010-01-01",
+      updated_at: "2014-01-01"
+      }
+    customer = Customer.new(data)
+
+    assert_equal 45, customer.id
+    assert_equal 'bob', customer.first_name
+    assert_equal 'jones', customer.last_name
+    assert_equal "2010-01-01", customer.created_at
+    assert_equal "2014-01-01", customer.updated_at
   end
-
-  def test_customer_has_id
-    assert @customer.id
-  end
-
 end
