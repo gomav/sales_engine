@@ -19,40 +19,40 @@ class InvoiceRepoTest < Minitest::Test
     assert_equal Invoice, @invoice_repo.random.class
   end
 
-  def test_find_by_id
-    invoices = @invoice_repo.find_by_id(1)
-    invoices1 = @invoice_repo.find_by_id(45)
+  def test_find_all_by_id
+    invoices = @invoice_repo.find_all_by_id(1)
+    invoices1 = @invoice_repo.find_all_by_id(45)
     assert_equal 1, invoices.size
     assert_equal 0, invoices1.size
   end
 
-  def test_find_by_merchant_id
-    invoices = @invoice_repo.find_by_merchant_id(1)
+  def test_find_all_by_merchant_id
+    invoices = @invoice_repo.find_all_by_merchant_id(1)
     assert_equal 3, invoices.size
   end
 
-  def test_find_by_customer_id
-    invoices = @invoice_repo.find_by_customer_id(539)
+  def test_find_all_by_customer_id
+    invoices = @invoice_repo.find_all_by_customer_id(539)
     assert_equal 1, invoices.size
   end
 
-  def test_find_by_status
-    invoices = @invoice_repo.find_by_status("shipped")
-    invoices1 = @invoice_repo.find_by_status("not shipped")
+  def test_find_all_by_status
+    invoices = @invoice_repo.find_all_by_status("shipped")
+    invoices1 = @invoice_repo.find_all_by_status("not shipped")
     assert_equal 3, invoices.size
     assert_equal 0, invoices1.size
   end
 
-  def test_find_by_created_at
-    invoices = @invoice_repo.find_by_created_at("2012-03-27 14:54:09 UTC")
-    invoices1 = @invoice_repo.find_by_created_at("2016-01-01")
+  def test_find_all_by_created_at
+    invoices = @invoice_repo.find_all_by_created_at("2012-03-27 14:54:09 UTC")
+    invoices1 = @invoice_repo.find_all_by_created_at("2016-01-01")
     assert_equal 3, invoices.size
     assert_equal 0, invoices1.size
   end
 
-  def test_find_by_updated_at
-    invoices = @invoice_repo.find_by_updated_at("2012-03-27 14:54:09 UTC")
-    invoices1 = @invoice_repo.find_by_updated_at("2016-01-01")
+  def test_find_all_by_updated_at
+    invoices = @invoice_repo.find_all_by_updated_at("2012-03-27 14:54:09 UTC")
+    invoices1 = @invoice_repo.find_all_by_updated_at("2016-01-01")
     assert_equal 3, invoices.size
     assert_equal 0, invoices1.size
   end

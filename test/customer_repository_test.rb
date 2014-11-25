@@ -18,38 +18,38 @@ class CustomerRespositoryTest < Minitest::Test
     assert_equal Customer, @customer_repo.random.class
   end
 
-  def test_find_by_last_name
-    customers = @customer_repo.find_by_last_name("jones")
+  def test_find_all_by_last_name
+    customers = @customer_repo.find_all_by_last_name("jones")
     assert_equal 2, customers.size
   end
 
-  def test_find_by_last_name_with_uppercase
-    customers = @customer_repo.find_by_last_name("JONES")
+  def test_find_all_by_last_name_with_uppercase
+    customers = @customer_repo.find_all_by_last_name("JONES")
     assert_equal 2, customers.size
   end
 
-  def test_find_by_first_name
-    customers = @customer_repo.find_by_first_name("jones")
+  def test_find_all_by_first_name
+    customers = @customer_repo.find_all_by_first_name("jones")
     assert_equal 0, customers.size
   end
 
-  def test_find_by_id
-    customers = @customer_repo.find_by_id(25)
-    customers1 = @customer_repo.find_by_id(45)
+  def test_find_all_by_id
+    customers = @customer_repo.find_all_by_id(25)
+    customers1 = @customer_repo.find_all_by_id(45)
     assert_equal 0, customers.size
     assert_equal 1, customers1.size
   end
 
-  def test_find_by_created_at
-    customers = @customer_repo.find_by_created_at("2010-01-01")
-    customers1 = @customer_repo.find_by_created_at("2016-01-01")
+  def test_find_all_by_created_at
+    customers = @customer_repo.find_all_by_created_at("2010-01-01")
+    customers1 = @customer_repo.find_all_by_created_at("2016-01-01")
     assert_equal 1, customers.size
     assert_equal 0, customers1.size
   end
 
-  def test_find_by_updated_at
-    customers = @customer_repo.find_by_updated_at("2014-01-01")
-    customers1 = @customer_repo.find_by_updated_at("2016-01-01")
+  def test_find_all_by_updated_at
+    customers = @customer_repo.find_all_by_updated_at("2014-01-01")
+    customers1 = @customer_repo.find_all_by_updated_at("2016-01-01")
     assert_equal 2, customers.size
     assert_equal 0, customers1.size
   end
