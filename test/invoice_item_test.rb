@@ -30,13 +30,13 @@ class InvoiceItemTest < Minitest::Test
   end
 
   def test_it_delegates_invoice_to_parent_repo
-    parent.expect(:find_invoice_from, nil, ["45"])
+    parent.expect(:find_invoice_from, nil, ["955"])
     invoice_item.invoice
     parent.verify
   end
 
   def test_it_delegates_item_to_parent_repo
-    parent.expect(:find_item_from, nil, ["45"])
+    parent.expect(:find_item_from, nil, ["34696"])
     invoice_item.item
     parent.verify
   end

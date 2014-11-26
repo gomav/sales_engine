@@ -19,8 +19,8 @@ class InvoiceRepoTest < Minitest::Test
   end
 
   def test_it_delegates_customer_to_sales_engine
-    sales_engine.expect(:find_customer_from_invoice, nil, ["1"])
-    invoice_repo.find_customer_from("1")
+    sales_engine.expect(:find_customer_from, nil, ["539"])
+    invoice_repo.find_customer_from("539")
     sales_engine.verify
   end
 

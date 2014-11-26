@@ -19,13 +19,13 @@ class InvoiceItemRepoTest < Minitest::Test
   end
 
   def test_it_delegates_item_to_sales_engine
-    sales_engine.expect(:find_item_from_invoice_item, nil, ["1"])
-    invoice_item_repo.find_item_from("1")
+    sales_engine.expect(:find_item_from, nil, ["539"])
+    invoice_item_repo.find_item_from("539")
     sales_engine.verify
   end
 
   def test_it_delegates_invoice_to_sales_engine
-    sales_engine.expect(:find_invoice_from_invoice_item, nil, ["1"])
+    sales_engine.expect(:find_invoice_from, nil, ["1"])
     invoice_item_repo.find_invoice_from("1")
     sales_engine.verify
   end

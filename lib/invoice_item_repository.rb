@@ -44,10 +44,10 @@ class InvoiceItemRepository < OfficeRepository
   end
 
   def find_item_from(id)
-    sales_engine.find_item_from_item(id)
+    sales_engine.find_item_from(id)
   end
 
   def find_invoice_from(id)
-    sales_engine.find_invoice_from_invoice(id)
+    sales_engine.find_invoice_from(id)
   end
 end

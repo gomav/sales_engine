@@ -35,7 +35,7 @@ class InvoiceRepository < OfficeRepository
   end
 
   def find_customer_from(id)
-    sales_engine.find_customer(id)
+    sales_engine.find_customer_from(id)
   end
 
   def find_invoice_items_from(id)
