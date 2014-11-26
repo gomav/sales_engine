@@ -1,5 +1,5 @@
 class InvoiceItem
-  attr_reader :id, :item_id, :invoice_id, :quantity, :unit_price, :created_at, :updated_at, :parent
+  attr_reader :id, :item_id, :invoice_id, :quantity, :unit_price, :created_at, :updated_at, :repo
 
   def initialize(data, parent)
     @id = data[:id]
@@ -10,5 +10,13 @@ class InvoiceItem
     @created_at = data[:created_at]
     @updated_at = data[:updated_at]
     @repo = parent
+  end
+
+  def invoice
+    repo.find_invoice_from(invoice_id)
+  end
+
+  def item
+    repo.find_item_from(item_id)
   end
 end

@@ -1,5 +1,5 @@
 class Customer
-  attr_reader :id, :first_name, :last_name, :created_at, :updated_at
+  attr_reader :id, :first_name, :last_name, :created_at, :updated_at, :repo
 
   def initialize(data, repo)
     @id = data[:id]
@@ -8,5 +8,9 @@ class Customer
     @created_at = data[:created_at]
     @updated_at = data[:updated_at]
     @repo = repo
+  end
+
+  def invoices
+    repo.find_invoices_from(id)
   end
 end

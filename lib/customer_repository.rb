@@ -27,7 +27,7 @@ class CustomerRepository < OfficeRepository
     generic_find_all(__method__.to_s.split('find_all_by_')[1], criteria)
   end
 
-  def find_items_from(id)
-    sales_engine.find_items_from_customer(id)
+  def find_invoices_from(id)
+    sales_engine.find_invoices_from_customer(id)
   end
 end

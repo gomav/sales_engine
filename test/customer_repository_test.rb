@@ -18,9 +18,9 @@ class CustomerRespositoryTest < Minitest::Test
     assert customer_repo
   end
 
-  def test_it_delegates_items_to_sales_engine
-    sales_engine.expect(:find_items_from_customer, nil, ["45"])
-    customer_repo.find_items_from("45")
+  def test_it_delegates_invoices_to_sales_engine
+    sales_engine.expect(:find_invoices_from_customer, nil, ["45"])
+    customer_repo.find_invoices_from("45")
     sales_engine.verify
   end
 

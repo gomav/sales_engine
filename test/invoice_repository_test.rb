@@ -3,14 +3,37 @@ require_relative 'test_helper'
 
 class InvoiceRepoTest < Minitest::Test
 
-  attr_reader :data, :invoice_repo
+  attr_reader :data, :invoice_repo, :sales_engine
 
   def setup
     @data = [{id: "1", customer_id: "539", merchant_id: "1", status: "shipped", created_at:"2012-03-27 14:54:09 UTC", updated_at: "2012-03-27 14:54:09 UTC"},
       {id: "2", customer_id: "528", merchant_id: "1", status: "shipped",  created_at: "2012-03-27 14:54:09 UTC", updated_at: "2012-03-27 14:54:09 UTC"},
       {id: "3", customer_id: "523", merchant_id: "1", status: "shipped", created_at: "2012-03-27 14:54:09 UTC", updated_at: "2012-03-27 14:54:09 UTC"}
     ]
-    @invoice_repo = InvoiceRepository.new(data, "filename")
+    @sales_engine = Minitest::Mock.new
+    @invoice_repo = InvoiceRepository.new(data, "filename", sales_engine)
+  end
+
+  def test_it_has_a_sales_engine
+    assert invoice_repo
+  end
+
+  def test_it_delegates_customer_to_sales_engine
+    sales_engine.expect(:find_customer_from_invoice, nil, ["1"])
+    invoice_repo.find_customer_from("1")
+    sales_engine.verify
+  end
+
+  def test_it_delegates_invoice_items_to_sales_engine
+    sales_engine.expect(:find_invoice_items_from_invoice, nil, ["1"])
+    invoice_repo.find_invoice_items_from("1")
+    sales_engine.verify
+  end
+
+  def test_it_delegates_items_to_sales_engine
+    sales_engine.expect(:find_items_from_invoice, nil, ["1"])
+    invoice_repo.find_items_from("1")
+    sales_engine.verify
   end
 
   def test_returns_all
@@ -46,15 +69,15 @@ class InvoiceRepoTest < Minitest::Test
   end
 
   def test_find_all_by_created_at
-    invoices = @invoice_repo.find_all_by_created_at("2012-03-27 14:54:09 UTC")
-    invoices1 = @invoice_repo.find_all_by_created_at("2016-01-01")
+    invoices = invoice_repo.find_all_by_created_at("2012-03-27 14:54:09 UTC")
+    invoices1 = invoice_repo.find_all_by_created_at("2016-01-01")
     assert_equal 3, invoices.size
     assert_equal 0, invoices1.size
   end
 
   def test_find_all_by_updated_at
-    invoices = @invoice_repo.find_all_by_updated_at("2012-03-27 14:54:09 UTC")
-    invoices1 = @invoice_repo.find_all_by_updated_at("2016-01-01")
+    invoices = invoice_repo.find_all_by_updated_at("2012-03-27 14:54:09 UTC")
+    invoices1 = invoice_repo.find_all_by_updated_at("2016-01-01")
     assert_equal 3, invoices.size
     assert_equal 0, invoices1.size
   end

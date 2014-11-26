@@ -7,7 +7,7 @@ class CustomerTest < Minitest::Test
 
   def setup
     @data = {
-      id: 45,
+      id: "45",
       first_name: "bob",
       last_name: "jones",
       created_at: "2010-01-01",
@@ -18,10 +18,18 @@ class CustomerTest < Minitest::Test
   end
 
   def test_customer_attributes
-    assert_equal 45, customer.id
+    assert_equal "45", customer.id
     assert_equal 'bob', customer.first_name
     assert_equal 'jones', customer.last_name
     assert_equal "2010-01-01", customer.created_at
     assert_equal "2014-01-01", customer.updated_at
   end
+
+  def test_it_delegates_invoices_to_parent
+    parent.expect(:find_invoices_from, nil, ["45"])
+    customer.invoices
+    parent.verify
+  end
 end
+
+# invoices returns a collection of Invoice instances associated with this object.

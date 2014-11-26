@@ -8,9 +8,9 @@ class InvoiceTest < Minitest::Test
 
   def setup
     data = {
-      id: 45,
-      customer_id: 34696,
-      merchant_id: 955,
+      id: "45",
+      customer_id: "34696",
+      merchant_id: "955",
       status: "valid",
       created_at: "2010-01-01",
       updated_at: "2015-01-01"
@@ -20,11 +20,52 @@ class InvoiceTest < Minitest::Test
   end
 
   def test_invoice_attributes
-    assert_equal 45, invoice.id
-    assert_equal 34696, invoice.customer_id
-    assert_equal 955, invoice.merchant_id
+    assert_equal "45", invoice.id
+    assert_equal "34696", invoice.customer_id
+    assert_equal "955", invoice.merchant_id
     assert_equal "valid", invoice.status
     assert_equal "2010-01-01", invoice.created_at
     assert_equal "2015-01-01", invoice.updated_at
   end
+
+  def test_it_has_a_transactions_method
+    assert invoice.respond_to?(:transactions)
+  end
+
+  def test_delegates_transactions_to_parent_repo
+    parent.expect(:find_transactions_from, nil, ["45"])
+    invoice.transactions
+    parent.verify
+  end
+
+  def test_delegates_invoice_items_to_parent_repo
+    parent.expect(:find_invoice_items_from, nil, ["45"])
+    invoice.invoice_items
+    parent.verify
+  end
+
+  def test_delegates_items_to_parent_repo
+    parent.expect(:find_items_from_invoice_items, nil, ["45"])
+    invoice.items
+    parent.verify
+  end
+
+  def test_delegates_customer_to_parent_repo
+    parent.expect(:find_customer_from, nil, ["34696"])
+    invoice.customer
+    parent.verify
+  end
+
+  def test_delegates_merchant_to_parent_repo
+    parent.expect(:find_merchant_from, nil, ["955"])
+    invoice.merchant
+    parent.verify
+  end
 end
+
+
+# transactions returns a collection of associated Transaction instances
+# invoice_items returns a collection of associated InvoiceItem instances
+# items returns a collection of associated Items by way of InvoiceItem objects
+# customer returns an instance of Customer associated with this object
+# merchant returns an instance of Merchant associated with this object

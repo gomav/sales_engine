@@ -28,4 +28,19 @@ class InvoiceItemTest < Minitest::Test
     assert_equal "2010-01-01", invoice_item.created_at
     assert_equal "2015-01-01", invoice_item.updated_at
   end
+
+  def test_it_delegates_invoice_to_parent_repo
+    parent.expect(:find_invoice_from, nil, ["45"])
+    invoice_item.invoice
+    parent.verify
+  end
+
+  def test_it_delegates_item_to_parent_repo
+    parent.expect(:find_item_from, nil, ["45"])
+    invoice_item.item
+    parent.verify
+  end
 end
+#
+# invoice returns an instance of Invoice associated with this object
+# item returns an instance of Item associated with this object
