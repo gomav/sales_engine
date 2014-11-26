@@ -8,4 +8,8 @@ require_relative 'transaction_repository'
 
 class SalesEngine
 
+  def initialize(filename)
+    @data ||= customers.map {|customer| CustomerRepository.new(filename, self)}
+  end
+
 end

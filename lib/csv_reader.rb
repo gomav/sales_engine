@@ -1,9 +1,15 @@
 require 'csv'
 
 class CsvReader
-  attr_reader :data
 
-  def load_csv(file)
-    CSV.open(file, headers: true, header_conveters: :symbol)
+  def self.load_csv(filename)
+    path = File.expand_path("./data/")
+    file = File.join(path, filename)
+    data = CSV.open(file, headers: true, header_converters: :symbol)
+    rows = data.map do |row|
+      row.to_hash
+    end
   end
 end
+
+CsvReader.load_csv("customers_fixer.rb")

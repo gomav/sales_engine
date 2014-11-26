@@ -3,8 +3,12 @@ require_relative 'office_repository'
 
 class InvoiceItemRepository < OfficeRepository
 
-  def initialize(invoice_items)
-    @data ||= invoice_items.map {|invoice_item| InvoiceItem.new(invoice_item)}
+  attr_reader :sales_engine, :data
+
+  
+  def initialize(invoice_items, filename, parent)
+    @data ||= invoice_items.map {|invoice_item| InvoiceItem.new(invoice_item, self)}
+    @sales_engine = parent
   end
 
   def find_by_item_id(criteria)

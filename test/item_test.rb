@@ -2,7 +2,7 @@ require_relative 'test_helper'
 require_relative '../lib/item'
 
 class ItemTest < Minitest::Test
-  attr_reader :item, :data
+  attr_reader :item, :data, :parent
 
   def test_item_exists
   end
@@ -17,12 +17,12 @@ class ItemTest < Minitest::Test
       created_at: '2012-03-27 14:53:59 UTC',
       updated_at: '2012-03-27 14:53:59 UTC'
     }
+    @parent = Minitest::Mock.new
+    @item = Item.new(data, parent)
 
-    item = Item.new(data)
   end
 
   def test_item_info
-    item = Item.new(data)
     assert_equal 4, item.id
     assert_equal 'Nemo Facere', item.name
     assert_equal 'Sunt eum id eius magni consequuntur delectus veritatis.',  item.description

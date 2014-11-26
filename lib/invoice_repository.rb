@@ -3,8 +3,8 @@ require_relative 'office_repository'
 
 class InvoiceRepository < OfficeRepository
 
-  def initialize(invoice)
-    @data ||= invoice.map {|invoice| Invoice.new(invoice)}
+  def initialize(invoice, filename)
+    @data ||= invoice.map {|invoice| Invoice.new(invoice, self)}
   end
 
   def find_by_customer_id(criteria)

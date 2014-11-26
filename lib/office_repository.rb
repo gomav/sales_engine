@@ -1,7 +1,8 @@
+require_relative "office_obj"
 class OfficeRepository
 
   def initialize(data)
-    @data ||= data.map {|data| Object.new()}
+    @data ||= data.map {|data| OfficeObj.new(data)}
   end
 
   def all
@@ -21,7 +22,7 @@ class OfficeRepository
   end
 
   def find_by_id(criteria)
-    send(:generic_non_string_find, __method__.to_s.split('find_by_')[1], criteria)
+    generic_non_string_find(__method__.to_s.split('find_by_')[1], criteria)
   end
 
   def find_by_created_at(criteria)
