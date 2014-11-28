@@ -24,6 +24,17 @@ class CustomerRespositoryTest < Minitest::Test
     sales_engine.verify
   end
 
+  def test_it_delegates_transactions_to_sales_engine
+    sales_engine.expect(:find_transactions_from_customer, nil, ["45"])
+    customer_repo.find_transactions_from("45")
+    sales_engine.verify
+  end
+
+  def test_it_delegates_favorite_merchant_to_sales_engine
+    sales_engine.expect(:find_favorite_merchant_from_customer, nil, ["45"])
+    customer_repo.find_favorite_merchant_from("45")
+  end
+  
   def test_returns_all
     assert_equal @data.length, @customer_repo.all.length
   end

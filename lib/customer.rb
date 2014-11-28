@@ -13,4 +13,12 @@ class Customer
   def invoices
     repo.find_invoices_from(id)
   end
+
+  def transactions
+    repo.find_transactions_from(id)
+  end
+
+  def favorite_merchant
+    repo.find_favorite_merchant_from(id)
+  end
 end

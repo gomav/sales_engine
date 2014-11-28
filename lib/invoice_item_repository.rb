@@ -12,35 +12,35 @@ class InvoiceItemRepository < OfficeRepository
   end
 
   def find_by_item_id(criteria)
-    generic_non_string_find(__method__.to_s.split('find_by_')[1], criteria)
+    generic_non_string_find("item_id", criteria)
   end
 
   def find_by_invoice_id(criteria)
-    generic_non_string_find(__method__.to_s.split('find_by_')[1], criteria)
+    generic_non_string_find("invoice_id", criteria)
   end
 
   def find_by_quantity(criteria)
-    generic_non_string_find(__method__.to_s.split('find_by_')[1], criteria)
+    generic_non_string_find("quantity", criteria)
   end
 
   def find_by_unit_price(criteria)
-    generic_non_string_find(__method__.to_s.split('find_by_')[1], criteria)
+    generic_non_string_find("unit_price", criteria)
   end
 
   def find_all_by_item_id(criteria)
-    generic_non_string_find_all(__method__.to_s.split('find_all_by_')[1], criteria)
+    generic_non_string_find_all("item_id", criteria)
   end
 
   def find_all_by_unit_price(criteria)
-    generic_non_string_find_all(__method__.to_s.split('find_all_by_')[1], criteria)
+    generic_non_string_find_all("unit_price", criteria)
   end
 
   def find_all_by_invoice_id(criteria)
-    generic_non_string_find_all(__method__.to_s.split('find_all_by_')[1], criteria)
+    generic_non_string_find_all("invoice_id", criteria)
   end
 
   def find_all_by_quantity(criteria)
-    generic_non_string_find_all(__method__.to_s.split('find_all_by_')[1], criteria)
+    generic_non_string_find_all("quantity", criteria)
   end
 
   def find_item_from(id)

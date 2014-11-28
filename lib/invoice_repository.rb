@@ -11,27 +11,27 @@ class InvoiceRepository < OfficeRepository
   end
 
   def find_by_customer_id(criteria)
-    generic_non_string_find(__method__.to_s.split('find_by_')[1], criteria)
+    generic_non_string_find("customer_id", criteria)
   end
 
   def find_by_merchant_id(criteria)
-    generic_non_string_find(__method__.to_s.split('find_by_')[1], criteria)
+    generic_non_string_find("merchant_id", criteria)
   end
 
   def find_by_status(criteria)
-    generic_find( __method__.to_s.split('find_by_')[1], criteria)
+    generic_find("status", criteria)
   end
 
   def find_all_by_customer_id(criteria)
-    generic_non_string_find_all(__method__.to_s.split('find_all_by_')[1], criteria)
+    generic_non_string_find_all("customer_id", criteria)
   end
 
   def find_all_by_merchant_id(criteria)
-    generic_non_string_find_all(__method__.to_s.split('find_all_by_')[1], criteria)
+    generic_non_string_find_all("merchant_id", criteria)
   end
 
   def find_all_by_status(criteria)
-    generic_find_all(__method__.to_s.split('find_all_by_')[1], criteria)
+    generic_find_all("status", criteria)
   end
 
   def find_customer_from(id)
