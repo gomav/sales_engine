@@ -91,7 +91,16 @@ class InvoiceRepoTest < Minitest::Test
   def test_create_standardizes_input_for_invoice
     input = {customer: "customer", merchant: "merchant", status: "shipped",
     items: ["item1", "item2", "item3"]}
+    sales_engine.expect(:create_invoice_items_from_inputs_and_invoice, nil, ["4", input])
     output = invoice_repo.create(input)
-    assert_equal "customer", output[:customer_id]
+    assert_equal "customer", output.customer_id
+  end
+
+  def test_it_delegates_create_invoice_items_to_sales_engine
+    input = {customer: "customer", merchant: "merchant", status: "shipped",
+      items: ["item1", "item2", "item3"]}
+    sales_engine.expect(:create_invoice_items_from_inputs_and_invoice, nil, ["4",input])
+    invoice_repo.create_invoice_items_from("4", input)
+    sales_engine.verify
   end
 end

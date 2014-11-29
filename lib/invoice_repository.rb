@@ -59,17 +59,17 @@ class InvoiceRepository < OfficeRepository
   end
 
   def create(input)
-    inputs = Hash.new{}
-    inputs[:id] = data.max_by(&:id) + 1
-    inputs[:customer_id] = input[:customer]
-    inputs[:merchant_id] = input[:merchant]
-    inputs[:created_at] = Time.now()
-    inputs[:updated_at] = Time.now()
+    invoice = Hash.new{}
+    invoice[:id] = (data.max_by(&:id).id.to_i + 1).to_s
+    invoice[:customer_id] = input[:customer]
+    invoice[:merchant_id] = input[:merchant]
+    invoice[:created_at] = Time.now()
+    invoice[:updated_at] = Time.now()
+    create_invoice_items_from(invoice[:id], input)
     Invoice.new(invoice, self)
+  end
 
-
-    # customer: customer, merchant: merchant, status: "shipped",
-    # items: [item1, item2, item3]
-
+  def create_invoice_items_from(id, input)
+    sales_engine.create_invoice_items_from_inputs_and_invoice(id, input)
   end
 end
