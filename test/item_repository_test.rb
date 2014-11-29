@@ -35,7 +35,7 @@ class ItemRepositoryTest < Minitest::Test
       ]
 
       @sales_engine = Minitest::Mock.new
-      @item_repository = ItemRepository.new(sales_engine, items)
+      @item_repository = ItemRepository.new(items, sales_engine)
     end
 
     def test_all

@@ -4,7 +4,7 @@ require_relative 'csv_reader'
 class MerchantRepository
   attr_reader :merchants, :sales_engine  # => nil
 
-  def initialize(sales_engine, merchants = '')
+  def initialize(merchants = '', sales_engine)
     @sales_engine = sales_engine
     @merchants ||= merchants.map {|merchant| Merchant.new(merchant, self)}
   end
@@ -36,10 +36,6 @@ class MerchantRepository
   def invoices(id)
     sales_engine.merchant_invoices(id)
   end
-
-  #   def inspect
-  #   "#<#{self.class} #{merchants.size} rows>"
-  # end
 
   def load_file(path)
     contents = CsvReader.load_file(path)

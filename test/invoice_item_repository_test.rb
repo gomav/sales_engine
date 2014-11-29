@@ -11,7 +11,7 @@ class InvoiceItemRepoTest < Minitest::Test
       {id: "3", item_id: "523", invoice_id: "1", quantity: "8", unit_price: "34873", created_at: "2012-03-27 14:54:09 UTC", updated_at: "2012-03-27 14:54:09 UTC"}
     ]
     @sales_engine = Minitest::Mock.new
-    @invoice_item_repo = InvoiceItemRepository.new(@data, "filename", sales_engine)
+    @invoice_item_repo = InvoiceItemRepository.new(@data, sales_engine)
   end
 
   def test_it_has_a_sales_engine

@@ -11,7 +11,7 @@ class CustomerRespositoryTest < Minitest::Test
       {id: "46", first_name: "jane", last_name: "Jones", created_at: "2012-01-01", updated_at: "2015-01-01" },
       {id: "47", first_name: "may", last_name: "johnson", created_at: "2011-01-01", updated_at: "2014-01-01" }]
     @sales_engine = Minitest::Mock.new
-    @customer_repo = CustomerRepository.new(data, "filepath", sales_engine)
+    @customer_repo = CustomerRepository.new(data, sales_engine)
   end
 
   def test_it_has_a_sales_engine

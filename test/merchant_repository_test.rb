@@ -26,7 +26,7 @@ def setup
     ]
 
     @sales_engine = Minitest::Mock.new
-    @merchant_repository = MerchantRepository.new(sales_engine, merchants)
+    @merchant_repository = MerchantRepository.new(merchants, sales_engine)
   end
 
   def test_all
