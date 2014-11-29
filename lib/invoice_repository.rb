@@ -53,4 +53,23 @@ class InvoiceRepository < OfficeRepository
   def find_transactions_from(id)
     sales_engine.find_transactions_from_invoice(id)
   end
+
+  def create_transaction_from(id, transaction_info)
+    sales_engine.create_transaction_from_invoice(id, transaction_info)
+  end
+
+  def create(input)
+    inputs = Hash.new{}
+    inputs[:id] = data.max_by(&:id) + 1
+    inputs[:customer_id] = input[:customer]
+    inputs[:merchant_id] = input[:merchant]
+    inputs[:created_at] = Time.now()
+    inputs[:updated_at] = Time.now()
+    Invoice.new(invoice, self)
+
+
+    # customer: customer, merchant: merchant, status: "shipped",
+    # items: [item1, item2, item3]
+
+  end
 end

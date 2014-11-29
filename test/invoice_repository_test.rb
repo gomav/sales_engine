@@ -36,6 +36,12 @@ class InvoiceRepoTest < Minitest::Test
     sales_engine.verify
   end
 
+  def test_it_delegates_create_transaction_to_sales_engine
+    sales_engine.expect(:create_transaction_from_invoice, nil, ["1", credit_card_number: "4444333322221111", credit_card_expiration: "10/13", result: "success"])
+    invoice_repo.create_transaction_from("1", credit_card_number: "4444333322221111", credit_card_expiration: "10/13", result: "success")
+    sales_engine.verify
+  end
+
   def test_returns_all
     assert_equal data.length, invoice_repo.all.length
   end
@@ -80,5 +86,12 @@ class InvoiceRepoTest < Minitest::Test
     invoices1 = invoice_repo.find_all_by_updated_at("2016-01-01")
     assert_equal 3, invoices.size
     assert_equal 0, invoices1.size
+  end
+
+  def test_create_standardizes_input_for_invoice
+    input = {customer: "customer", merchant: "merchant", status: "shipped",
+    items: ["item1", "item2", "item3"]}
+    output = invoice_repo.create(input)
+    assert_equal "customer", output[:customer_id]
   end
 end

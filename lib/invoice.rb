@@ -30,4 +30,8 @@ class Invoice
   def merchant
     repo.find_merchant_from(merchant_id)
   end
+
+  def charge(transaction_info)
+    repo.create_transaction_from(id, transaction_info[:credit_card_number], transaction_info[:credit_card_expiration], transaction_info[:result])
+  end
 end
