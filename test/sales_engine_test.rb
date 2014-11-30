@@ -56,10 +56,31 @@ class SalesEngineTest < Minitest::Test
 
   def test_it_finds_transactions_from_customer_id
     assert sales_engine.respond_to?(:find_transactions_from_customer)
-    # sales_engine.find_transactions_from_customer("1")
+    #sales_engine.find_transactions_from_customer("1")
   end
 
   def test_it_finds_favorite_merchant_from_customer_id
+    # sales_engine.find_favorite_merchant_from_customer("1")
     assert sales_engine.respond_to?(:find_favorite_merchant_from_customer)
+  end
+
+  def test_it_finds_item_from_item_id
+    assert sales_engine.respond_to?(:find_item_from)
+  end
+
+  def test_it_finds_invoice_from_invoice_id
+    assert sales_engine.respond_to?(:find_invoice_from)
+  end
+
+  def test_it_finds_customer_from_customer_id
+    assert sales_engine.respond_to?(:find_customer_from)
+  end
+
+  def test_it_finds_merchant_from_merchant_id
+    assert sales_engine.respond_to?(:find_merchant_from)
+  end
+
+  def test_it_finds_transaction_from_invoice_id
+    assert sales_engine.respond_to?(:find_transaction_from_invoice)
   end
 end

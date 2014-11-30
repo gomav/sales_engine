@@ -47,8 +47,8 @@ class ItemRepositoryTest < Minitest::Test
     end
 
     def test_find_by_item_id
-      item = item_repository.find_by_item_id(7)
-      assert_equal 7, item.id
+      item = item_repository.find_by_item_id("7")
+      assert_equal "7", item.id
     end
 
     def test_find_by_item_name

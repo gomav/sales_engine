@@ -80,4 +80,24 @@ class SalesEngine
     fav_merch = success_merch_id.max_by{|id| success_merch_id.count(id) }
     merchant_repository.find_by_merchant_id(fav_merch)
   end
+
+  def find_item_from(id)
+    item_repository.find_by_item_id(id)
+  end
+
+  def find_invoice_from(id)
+    invoice_repository.find_by_id(id)
+  end
+
+  def find_customer_from(id)
+    customer_repository.find_by(id)
+  end
+
+  def find_merchant_from(id)
+    merchant_repository.find_by(id)
+  end
+
+  def find_transaction_from_invoice(id)
+    # transaction_repository.find_by_invoice_id(id)
+  end
 end

@@ -3,7 +3,7 @@ class Item
 
 
   def initialize(data, parent)
-    @id = data[:id].to_i
+    @id = data[:id]
     @name = data[:name]
     @description = data[:description]
     @unit_price = data[:unit_price]
