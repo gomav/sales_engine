@@ -9,6 +9,10 @@ class MerchantRepository
     @merchants ||= merchants.map {|merchant| Merchant.new(merchant, self)}
   end
 
+  def inspect
+    "#<\#{self.class} \#{@data.size} rows>"
+  end
+  
   def all
     merchants
   end

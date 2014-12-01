@@ -11,20 +11,24 @@ class CustomerRepository < OfficeRepository
     @sales_engine = parent
   end
 
+  def inspect
+    "#<\#{self.class} \#{@data.size} rows>"
+  end
+
   def find_by_last_name(criteria)
-    generic_find(__method__.to_s.split('find_by_')[1], criteria)
+    generic_find('last_name', criteria)
   end
 
   def find_by_first_name(criteria)
-    generic_find(__method__.to_s.split('find_by_')[1], criteria)
+    generic_find('first_name', criteria)
   end
 
   def find_all_by_last_name(criteria)
-    generic_find_all(__method__.to_s.split('find_all_by_')[1], criteria)
+    generic_find_all('last_name', criteria)
   end
 
   def find_all_by_first_name(criteria)
-    generic_find_all(__method__.to_s.split('find_all_by_')[1], criteria)
+    generic_find_all('first_name', criteria)
   end
 
   def find_invoices_from(id)

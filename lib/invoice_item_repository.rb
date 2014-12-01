@@ -11,6 +11,10 @@ class InvoiceItemRepository < OfficeRepository
     @sales_engine = parent
   end
 
+  def inspect
+    "#<\#{self.class} \#{@data.size} rows>"
+  end
+
   def find_by_item_id(criteria)
     generic_non_string_find("item_id", criteria)
   end

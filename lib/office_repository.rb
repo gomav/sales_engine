@@ -7,6 +7,10 @@ class OfficeRepository
     @data ||= data.map {|data| OfficeObj.new(data)}
   end
 
+  def inspect
+    "#<\#{self.class} \#{@data.size} rows>"
+  end
+
   def all
     data
   end

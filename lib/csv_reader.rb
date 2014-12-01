@@ -3,7 +3,7 @@ require 'csv'
 class CsvReader
 
   def self.load_csv(filename)
-    path = File.expand_path("./data/")
+    path = File.expand_path("./csvs/")
     file = File.join(path, filename)
     data = CSV.open(file, headers: true, header_converters: :symbol)
     output = []

@@ -27,27 +27,32 @@ class SalesEngine
   end
 
   def startup_customer
-    customers = CsvReader.load_csv("customers_fixer.rb")
+    customers = CsvReader.load_csv("customers.csv")
+    #customers = CsvReader.load_csv("customers_fixer.csv")
     @customer_repository = CustomerRepository.new(customers, parent)
   end
 
   def startup_invoice
-    invoice = CsvReader.load_csv("invoices_fixer.rb")
+    invoice = CsvReader.load_csv("invoices.csv")
+    #invoice = CsvReader.load_csv("invoices_fixer.csv")
     @invoice_repository = InvoiceRepository.new(invoice, parent)
   end
 
   def startup_invoice_item
-    invoice_item = CsvReader.load_csv("invoice_items_fixer.rb")
+    invoice_item = CsvReader.load_csv("invoice_items.csv")
+    #invoice_item = CsvReader.load_csv("invoice_items_fixer.csv")
     @invoice_item_repository = InvoiceItemRepository.new(invoice_item, parent)
   end
 
   def startup_item
-    item = CsvReader.load_csv("items_fixer.rb")
+    item = CsvReader.load_csv("items.csv")
+    #item = CsvReader.load_csv("items_fixer.csv")
     @item_repository = ItemRepository.new(item, parent)
   end
 
   def startup_merchant
-    merchant = CsvReader.load_csv("merchants_fixer.rb")
+    merchant = CsvReader.load_csv("merchants.csv")
+    #merchant = CsvReader.load_csv("merchants_fixture.rb")
     @merchant_repository = MerchantRepository.new(merchant, parent)
   end
   #

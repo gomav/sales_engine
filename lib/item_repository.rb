@@ -9,6 +9,10 @@ class ItemRepository
     @items ||= items.map {|item| Item.new(item, self)}
   end
 
+  def inspect
+    "#<\#{self.class} \#{@data.size} rows>"
+  end
+  
   def all
     items
   end
