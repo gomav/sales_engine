@@ -27,32 +27,32 @@ class SalesEngine
   end
 
   def startup_customer
-    #customers = CsvReader.load_csv("customers.csv")
-    customers = CsvReader.load_csv("customers_fixture.csv")
+    customers = CsvReader.load_csv("customers.csv")
+    #customers = CsvReader.load_csv("customers_fixture.csv")
     @customer_repository = CustomerRepository.new(customers, parent)
   end
 
   def startup_invoice
-    #invoice = CsvReader.load_csv("invoices.csv")
-    invoice = CsvReader.load_csv("invoices_fixture.csv")
+    invoice = CsvReader.load_csv("invoices.csv")
+    #invoice = CsvReader.load_csv("invoices_fixture.csv")
     @invoice_repository = InvoiceRepository.new(invoice, parent)
   end
 
   def startup_invoice_item
-    #invoice_item = CsvReader.load_csv("invoice_items.csv")
-    invoice_item = CsvReader.load_csv("invoice_items_fixture.csv")
+    invoice_item = CsvReader.load_csv("invoice_items.csv")
+    #invoice_item = CsvReader.load_csv("invoice_items_fixture.csv")
     @invoice_item_repository = InvoiceItemRepository.new(invoice_item, parent)
   end
 
   def startup_item
-    #item = CsvReader.load_csv("items.csv")
-    item = CsvReader.load_csv("items_fixture.csv")
+    item = CsvReader.load_csv("items.csv")
+    #item = CsvReader.load_csv("items_fixture.csv")
     @item_repository = ItemRepository.new(item, parent)
   end
 
   def startup_merchant
-    #merchant = CsvReader.load_csv("merchants.csv")
-    merchant = CsvReader.load_csv("merchants_fixture.csv")
+    merchant = CsvReader.load_csv("merchants.csv")
+    #merchant = CsvReader.load_csv("merchants_fixture.csv")
     @merchant_repository = MerchantRepository.new(merchant, parent)
   end
   #
@@ -88,6 +88,10 @@ class SalesEngine
 
   def find_item_from(id)
     item_repository.find_by_item_id(id)
+  end
+
+  def find_items_from(id)
+    item_repository.find_all_by_item(id)
   end
 
   def find_invoice_from(id)

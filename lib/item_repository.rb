@@ -12,7 +12,7 @@ class ItemRepository
   def inspect
     "#<\#{self.class} \#{@data.size} rows>"
   end
-  
+
   def all
     items
   end
@@ -39,6 +39,10 @@ class ItemRepository
 
   def find_by_merchant_id(merchant_id)
     items.find { |item| item.merchant_id == merchant_id }
+  end
+
+  def find_all_by_item(id)
+    items.select { |item| item.id == id }
   end
 
   def load_file(path)
