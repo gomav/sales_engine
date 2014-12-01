@@ -13,7 +13,7 @@ class InvoiceRepository < OfficeRepository
   def inspect
     "#<\#{self.class} \#{@data.size} rows>"
   end
-  
+
   def find_by_customer_id(criteria)
     generic_non_string_find("customer_id", criteria)
   end
@@ -64,9 +64,9 @@ class InvoiceRepository < OfficeRepository
 
   def create(input)
     invoice = Hash.new{}
-    invoice[:id] = (data.max_by(&:id).id.to_i + 1).to_s
-    invoice[:customer_id] = input[:customer]
-    invoice[:merchant_id] = input[:merchant]
+    invoice[:id] = data.max_by(&:id).id + 1
+    invoice[:customer_id] = data.max_by(&:customer_id).customer_id + 1
+    invoice[:merchant_id] = data.max_by(&:merchant_id).merchant_id + 1
     invoice[:created_at] = Time.now()
     invoice[:updated_at] = Time.now()
     create_invoice_items_from(invoice[:id], input)

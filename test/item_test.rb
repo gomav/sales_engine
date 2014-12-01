@@ -23,11 +23,11 @@ class ItemTest < Minitest::Test
   end
 
   def test_item_info
-    assert_equal "4", item.id
+    assert_equal 4, item.id
     assert_equal 'Nemo Facere', item.name
     assert_equal 'Sunt eum id eius magni consequuntur delectus veritatis.',  item.description
     assert_equal '4291', item.unit_price
-    assert_equal '1', item.merchant_id
+    assert_equal 1, item.merchant_id
     assert_equal '2012-03-27 14:53:59 UTC', item.created_at
     assert_equal '2012-03-27 14:53:59 UTC', item.updated_at
   end

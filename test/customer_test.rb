@@ -7,7 +7,7 @@ class CustomerTest < Minitest::Test
 
   def setup
     @data = {
-      id: "45",
+      id: 45,
       first_name: "bob",
       last_name: "jones",
       created_at: "2010-01-01",
@@ -18,7 +18,7 @@ class CustomerTest < Minitest::Test
   end
 
   def test_customer_attributes
-    assert_equal "45", customer.id
+    assert_equal 45, customer.id
     assert_equal 'bob', customer.first_name
     assert_equal 'jones', customer.last_name
     assert_equal "2010-01-01", customer.created_at
@@ -26,19 +26,19 @@ class CustomerTest < Minitest::Test
   end
 
   def test_it_delegates_invoices_to_parent
-    parent.expect(:find_invoices_from, nil, ["45"])
+    parent.expect(:find_invoices_from, nil, [45])
     customer.invoices
     parent.verify
   end
 
   def test_it_delegates_transactions_to_parent
-    parent.expect(:find_transactions_from, nil, ["45"])
+    parent.expect(:find_transactions_from, nil, [45])
     customer.transactions
     parent.verify
   end
 
   def test_it_delegates_favorite_merchant_to_parent
-    parent.expect(:find_favorite_merchant_from, nil, ["45"])
+    parent.expect(:find_favorite_merchant_from, nil, [45])
     customer.favorite_merchant
     parent.verify
   end

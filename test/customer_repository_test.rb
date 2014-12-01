@@ -7,9 +7,9 @@ class CustomerRespositoryTest < Minitest::Test
 
 
   def setup
-    @data = [{id: "45", first_name: "bob", last_name: "jones", created_at: "2010-01-01", updated_at: "2014-01-01" },
-      {id: "46", first_name: "jane", last_name: "Jones", created_at: "2012-01-01", updated_at: "2015-01-01" },
-      {id: "47", first_name: "may", last_name: "johnson", created_at: "2011-01-01", updated_at: "2014-01-01" }]
+    @data = [{id: 45, first_name: "bob", last_name: "jones", created_at: "2010-01-01", updated_at: "2014-01-01" },
+      {id: 46, first_name: "jane", last_name: "Jones", created_at: "2012-01-01", updated_at: "2015-01-01" },
+      {id: 47, first_name: "may", last_name: "johnson", created_at: "2011-01-01", updated_at: "2014-01-01" }]
     @sales_engine = Minitest::Mock.new
     @customer_repo = CustomerRepository.new(data, sales_engine)
   end
@@ -19,20 +19,20 @@ class CustomerRespositoryTest < Minitest::Test
   end
 
   def test_it_delegates_invoices_to_sales_engine
-    sales_engine.expect(:find_invoices_from_customer, nil, ["45"])
-    customer_repo.find_invoices_from("45")
+    sales_engine.expect(:find_invoices_from_customer, nil, [45])
+    customer_repo.find_invoices_from(45)
     sales_engine.verify
   end
 
   def test_it_delegates_transactions_to_sales_engine
-    sales_engine.expect(:find_transactions_from_customer, nil, ["45"])
-    customer_repo.find_transactions_from("45")
+    sales_engine.expect(:find_transactions_from_customer, nil, [45])
+    customer_repo.find_transactions_from(45)
     sales_engine.verify
   end
 
   def test_it_delegates_favorite_merchant_to_sales_engine
-    sales_engine.expect(:find_favorite_merchant_from_customer, nil, ["45"])
-    customer_repo.find_favorite_merchant_from("45")
+    sales_engine.expect(:find_favorite_merchant_from_customer, nil, [45])
+    customer_repo.find_favorite_merchant_from(45)
   end
 
   def test_returns_all
@@ -59,8 +59,8 @@ class CustomerRespositoryTest < Minitest::Test
   end
 
   def test_find_all_by_id
-    customers = customer_repo.find_all_by_id("25")
-    customers1 = customer_repo.find_all_by_id("45")
+    customers = customer_repo.find_all_by_id(25)
+    customers1 = customer_repo.find_all_by_id(45)
     assert_equal 0, customers.size
     assert_equal 1, customers1.size
   end

@@ -2,9 +2,9 @@ class Invoice
   attr_reader :id, :customer_id, :merchant_id, :status, :created_at, :updated_at, :repo
 
   def initialize(data, parent)
-    @id = data[:id]
-    @customer_id = data[:customer_id]
-    @merchant_id = data[:merchant_id]
+    @id = data[:id].to_i
+    @customer_id = data[:customer_id].to_i
+    @merchant_id = data[:merchant_id].to_i
     @status = data[:status]
     @created_at = data[:created_at]
     @updated_at = data[:updated_at]
