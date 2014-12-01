@@ -21,7 +21,7 @@ class Invoice
   end
 
   def items
-    repo.find_items_from_invoice_items(id)
+    repo.find_items_from(id)
   end
 
   def customer

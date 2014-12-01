@@ -1,16 +1,16 @@
-require 'csv'
-require_relative 'merchant_repository'
-require_relative 'invoice_repository'
-require_relative 'invoice_item_repository'
-require_relative 'item_repository'
-require_relative 'customer_repository'
-require_relative 'transaction_repository'
+require 'csv'                               # => true
+require_relative 'merchant_repository'      # => true
+require_relative 'invoice_repository'       # => true
+require_relative 'invoice_item_repository'  # => true
+require_relative 'item_repository'          # => true
+require_relative 'customer_repository'      # => true
+require_relative 'transaction_repository'   # => true
 
 
 class SalesEngine
-  attr_reader :parent, :customer_repository, :invoice_repository,
-              :invoice_item_repository, :item_repository, :merchant_repository,
-              :transaction_repository
+  attr_reader :parent, :customer_repository, :invoice_repository,                # => :invoice_repository
+              :invoice_item_repository, :item_repository, :merchant_repository,  # => :merchant_repository
+              :transaction_repository                                            # => nil
 
 
   def initialize
@@ -65,6 +65,15 @@ class SalesEngine
     invoice_repository.find_all_by_customer_id(id)
   end
 
+  def find_invoice_items_from_invoice(id)
+    invoice_item_repository.find_all_by_invoice_id(id)
+  end
+
+  def find_items_from_invoice(id)
+    items = find_invoice_items_from_invoice(id)
+    items.map{|item| find_item_from(item.item_id)}
+  end
+
   def find_transactions_from_customer(id)
     all_invoices = find_invoices_from_customer(id)
     all_invoice_ids = all_invoices.map(&:id)
@@ -106,7 +115,7 @@ class SalesEngine
   end
 
   def find_customer_from(id)
-    customer_repository.find_by(id)
+    customer_repository.find_by_id(id)
   end
 
   def find_merchant_from(id)
