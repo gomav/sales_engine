@@ -1,5 +1,6 @@
 class Invoice
-  attr_reader :id, :customer_id, :merchant_id, :status, :created_at, :updated_at, :repo
+  attr_reader :id, :customer_id, :merchant_id, :status,
+              :created_at, :updated_at, :repo
 
   def initialize(data, parent)
     @id = data[:id].to_i
@@ -32,6 +33,7 @@ class Invoice
   end
 
   def charge(transaction_info)
-    repo.create_transaction_from(id, transaction_info[:credit_card_number], transaction_info[:credit_card_expiration], transaction_info[:result])
+    repo.create_transaction_from(id, transaction_info[:credit_card_number],
+    transaction_info[:credit_card_expiration], transaction_info[:result])
   end
 end

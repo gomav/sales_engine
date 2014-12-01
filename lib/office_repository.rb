@@ -20,11 +20,13 @@ class OfficeRepository
   end
 
   def generic_find(attribute, criteria)
-    data.find { |office_obj| office_obj.send(attribute.to_sym).downcase == criteria.downcase }
+    data.find do |office_obj|
+      office_obj.send(attribute.to_sym).downcase == criteria.downcase
+    end
   end
 
   def generic_non_string_find(attribute, criteria)
-    data.find { |office_obj| office_obj.send(attribute.to_sym) == criteria }
+    data.find {|office_obj| office_obj.send(attribute.to_sym) == criteria}
   end
 
   def find_by_id(criteria)
@@ -40,7 +42,9 @@ class OfficeRepository
   end
 
   def generic_find_all(attribute, criteria)
-    data.select { |office_obj| office_obj.send(attribute.to_sym).downcase == criteria.downcase }
+    data.select do |office_obj|
+      office_obj.send(attribute.to_sym).downcase == criteria.downcase
+    end
   end
 
   def generic_non_string_find_all(attribute, criteria)

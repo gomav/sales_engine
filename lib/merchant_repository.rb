@@ -12,7 +12,7 @@ class MerchantRepository
   def inspect
     "#<\#{self.class} \#{@data.size} rows>"
   end
-  
+
   def all
     merchants
   end

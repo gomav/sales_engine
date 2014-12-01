@@ -68,15 +68,22 @@ class SalesEngine
   def find_transactions_from_customer(id)
     all_invoices = find_invoices_from_customer(id)
     all_invoice_ids = all_invoices.map(&:id)
-    # all_transactions = all_invoice_ids.map {|invoice_id| transaction_repository.select {|transaction| transaction.invoice_id == invoice_id }
-    # }
+    # all_transactions = all_invoice_ids.map do
+    #|invoice_id| transaction_repository.select do |transaction|
+    # transaction.invoice_id == invoice_id
+    # end
+    # end
     # all_invoice_ids.each do |invoice_id|
-    #   all transactions << transaction_repository.select {|transaction| transaction.invoice_id == invoice_id }
+    #   all transactions << transaction_repository.select do |transaction|
+    # transaction.invoice_id == invoice_id
+    # end
     # end
   end
 
   def find_favorite_merchant_from_customer(id)
-    successes = find_transactions_from_customer(id).select{|transaction| transaction.result == "success"}
+    successes = find_transactions_from_customer(id).select do |transaction|
+      transaction.result == "success"
+    end
     success_invoice_ids = successes.map(&:invoice_id)
     success_merchant_ids = []
     success_invoice_ids.each do |invoice_id|
