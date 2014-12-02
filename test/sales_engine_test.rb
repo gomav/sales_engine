@@ -45,7 +45,7 @@ class SalesEngineTest < Minitest::Test
   end
 
   def test_a_sales_engine_has_a_transaction_repository
-    skip
+    
     sales_engine.startup
     assert sales_engine.transaction_repository
   end

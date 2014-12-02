@@ -10,7 +10,7 @@ def setup
       id: 1,
       invoice_id: 1,
       credit_card_number: '4654405418249632',
-      credit_card_expiration_date: '2012-03-27 14:54:09',
+      credit_card_expiration: '2012-03-27 14:54:09',
       result: 'fail',
       created_at: '2012-03-27 14:54:09 UTC',
       updated_at: '2012-03-27 14:54:09 UTC'
@@ -19,7 +19,7 @@ def setup
       id: 2,
       invoice_id: 2,
       credit_card_number: '4580251236515201',
-      credit_card_expiration_date: '2012-03-27 14:54:09',
+      credit_card_expiration: '2012-03-27 14:54:09',
       result: 'success',
       created_at: '2012-03-27 14:54:09',
       updated_at: '2012-03-27 14:54:09 UTC'
@@ -28,7 +28,7 @@ def setup
       id: 3,
       invoice_id: 3,
       credit_card_number: '4354495077693036',
-      credit_card_expiration_date: '2012-03-27 14:54:09',
+      credit_card_expiration: '2012-03-27 14:54:09',
       result: 'success',
       created_at: '2012-03-27 14:54:09 UTC',
       updated_at: '2012-03-27 14:54:09 UTC'
@@ -68,9 +68,9 @@ def setup
   end
 
   def test_find_by_credit_card_expiration
-    skip
-    transaction = transaction_repository.find_by_credit_card_expiration('2012-03-27 14:54:09 UTC')
-    assert_equal '2012-03-27 14:54:09 UTC', transaction.credit_card_expiration
+
+    transaction = transaction_repository.find_by_credit_card_expiration('2012-03-27 14:54:09')
+    assert_equal '2012-03-27 14:54:09', transaction.credit_card_expiration
   end
 
   def test_find_by_result
@@ -80,41 +80,42 @@ def setup
   end
 
   def test_find_all_by_transaction_id
-    skip
-    transaction = transaction_repository.find_all_by_transaction_id(2)
-    transaction1= transaction_repository.find_all_by_transaction_id(3)
-    assert_equal 2, transaction.transaction_id
-    assert_equal 3, transaction.transaction_id
+
+    transactions = transaction_repository.find_all_by_transaction_id(2)
+    transactions1= transaction_repository.find_all_by_transaction_id(3)
+    assert_equal 1, transactions.size
+    assert_equal 1, transactions1.size
   end
 
   def test_find_all_by_invoice_id
-    skip
+
     transaction = transaction_repository.find_all_by_invoice_id(3)
-    assert_equal 1, transaction.invoice_id
+    assert_equal 1, transaction.size
 
   end
 
   def test_find_all_by_credit_card_number
-    skip
-    transaction = transaction_repository.find_all_by_credit_card_number('')
-    transaction = transactino_repository.find_all_by_credit_card_number('4654405418249632')
-    assert_equal '4354495077693036', transaction.credit_card_number
-    assert_equal '4654405418249632', transaction.credit_card_number
+
+    transactions = transaction_repository.find_all_by_credit_card_number('')
+    transactions1 = transaction_repository.find_all_by_credit_card_number('4654405418249632')
+    assert_equal 0, transactions.size
+    assert_equal 1, transactions1.size
   end
 
   def test_find_all_by_credit_card_expiration
-    skip
-    transaction = transaction.repository.find_all_by_credit_card_expiration('2012-03-27 14:54:09 UTC')
-    transaction = transaction.repository.find_all_by_credit_card_expiration('')
-    assert_equal '2012-03-27 14:54:09 UTC', transaction.credit_card_expiration
-    assert_equal '2012-03-27 14:54:09', transaction.credit_card_expiration
+
+    transactions = transaction_repository.find_all_by_credit_card_expiration('2012-03-27 14:54:09')
+    transactions1 = transaction_repository.find_all_by_credit_card_expiration('')
+    #puts "transactions #{transactions}"
+    assert_equal 3, transactions.size
+    assert_equal 0, transactions1.size
   end
 
   def test_find_all_by_result
-    skip
-    transaction = transaction.repository.find_all_by_result('success')
-    transaction = transaction.repository.find_all_by_result('fail')
-    assert_equal 'success', transaction.result
-    assert_equal 'fail', transaction.result
+
+    transactions = transaction_repository.find_all_by_result('success')
+    transactions1 = transaction_repository.find_all_by_result('fail')
+    assert_equal 2, transactions.size
+    assert_equal 1, transactions1.size
   end
 end
