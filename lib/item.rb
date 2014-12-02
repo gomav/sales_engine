@@ -1,8 +1,9 @@
 class Item
-  attr_reader :id, :name, :description, :unit_price, :merchant_id, :created_at, :updated_at
+  attr_reader :id, :name, :description, :unit_price, :merchant_id, :created_at,
+              :updated_at, :repository
 
 
-  def initialize(data, parent)
+  def initialize(data, repository)
     @id = data[:id].to_i
     @name = data[:name]
     @description = data[:description]
@@ -10,11 +11,15 @@ class Item
     @merchant_id = data[:merchant_id].to_i
     @created_at = data[:created_at]
     @updated_at = data[:updated_at]
-    @repo = parent
+    @repository = repository
   end
 
   def merchant
     repo.merchant(merchant_id)
+  end
+
+  def invoice_items
+    repository.invoice_items(id)
   end
 
 end

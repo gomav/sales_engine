@@ -41,12 +41,19 @@ class ItemRepository
     items.find { |item| item.merchant_id == merchant_id }
   end
 
-  def find_all_by_item(id)
-    items.select { |item| item.id == id }
+  def find_all_by_name(name)
+    items.select { |item| item.name == name }
   end
 
-  def load_file(path)
-      contents = CsvReader.load_file(path)
-      contents.map { |row| Item.new(row, self) }
+  def find_all_by_description(description)
+    items.select { |item| item.description == description}
+  end
+
+  def find_all_by_unit_price(price)
+    items.select { |item| item.unit_price == price }
+  end
+
+  def find_all_by_merchant_id(merchant_id)
+    items.select { |item| item.merchant_id == merchant_id}
   end
 end

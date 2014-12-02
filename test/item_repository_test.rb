@@ -9,7 +9,7 @@ class ItemRepositoryTest < Minitest::Test
         id: 3,
         name: 'Item',
         description:  'Ea Voluptatum,Sunt officia eum qui molestiae.',
-        unit_price: '32301',
+        unit_price: '67076',
         merchant_id: 1,
         created_at: '2012-03-27 14:53:59 UTC',
         updated_at: '2012-03-27 14:53:59 UTC'
@@ -71,4 +71,28 @@ class ItemRepositoryTest < Minitest::Test
        item = item_repository.find_by_merchant_id(1)
        assert_equal 1, item.merchant_id
     end
+
+    def test_find_all_by_name
+      item = item_repository.find_all_by_name('Item')
+      assert_equal 3, item.size
+    end
+
+    def test_find_all_by_description
+      items = item_repository.find_all_by_description('Ea Voluptatum,Sunt officia eum qui molestiae.')
+      items1 = item_repository.find_all_by_description('Autem Minima,Cumque consequuntur ad.')
+      #puts "these are items #{items[0].description }"
+      assert_equal 1, items.size
+      assert_equal 1, items1.count
+    end
+
+    def test_find_all_by_unit_price
+      item = item_repository.find_all_by_unit_price('67076')
+      assert_equal 2, item.size
+    end
+
+    def test_find_all_by_merchant_id
+      items = item_repository.find_all_by_merchant_id(1)
+      assert_equal 3, items.size
+    end
+
 end

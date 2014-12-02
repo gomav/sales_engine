@@ -2,7 +2,7 @@ require_relative 'test_helper'
 require_relative '../lib/transaction'
 
 class TransactionTest < Minitest::Test
-  attr_reader :transaction, :data
+  attr_reader :transaction, :data, :repository
 
   def test_it_exists
   end
@@ -17,12 +17,12 @@ class TransactionTest < Minitest::Test
       created_at: '2012-03-27 14:54:09 UTC',
       updated_at: '2012-03-27 14:54:09 UTC'
     }
-
-    transaction = Transaction.new(data)
+    @repository = Minitest::Mock.new
+    transaction = Transaction.new(data, repository)
   end
 
   def test_transaction_info
-    transaction = Transaction.new(data)
+    transaction = Transaction.new(data, repository)
     assert_equal 1, transaction.id
     assert_equal '1', transaction.invoice_id
     assert_equal '4654405418249632', transaction.credit_card_number

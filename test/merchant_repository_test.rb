@@ -6,19 +6,19 @@ attr_reader :merchants, :merchant_repository, :sales_engine
 
 def setup
   @merchants = [{
-      id: '3',
+      id: 3,
       name: 'Willms and Sons',
       created_at: '2012-03-27 14:53:59 UTC',
       updated_at: '2012-03-27 14:53:59 UTC'
     },
     {
-      id: '2',
+      id: 2,
       name: 'Klein, Rempel and Jones',
       created_at: '2012-03-27 14:53:59 UTC',
       updated_at: '2012-03-27 14:53:59 UTC'
     },
     {
-      id: '7',
+      id: 7,
       name: 'Bernhard-Johns',
       created_at: '2012-03-27 14:53:59 UTC',
       updated_at: '2012-03-27 14:53:59 UTC'
@@ -45,5 +45,19 @@ def setup
   def test_find_by_merchant_name
     merchant = merchant_repository.find_by_merchant_name('Bernhard-Johns')
     assert_equal 'Bernhard-Johns', merchant.name
+  end
+
+  def test_find_all_by_merchant_id
+    merchant = merchant_repository.find_all_by_merchant_id(2)
+    merchant1 = merchant_repository.find_all_by_merchant_id(7)
+    assert_equal 1, merchant.size
+    assert_equal 1, merchant1.size
+  end
+
+  def test_find_all_by_merchant_name
+    merchant = merchant_repository.find_all_by_merchant_name('Bernhard-Johns')
+    merchant1 = merchant_repository.find_all_by_merchant_name('Klein, Rempel and Jones')
+    assert_equal 1, merchant.size
+    assert_equal 1, merchant1.size
   end
 end
