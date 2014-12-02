@@ -25,7 +25,7 @@ class ItemRepository
     items.find { |item| item.id == id }
   end
 
-  def find_by_item_name(name)
+  def find_by_name(name)
     items.find { |item| item.name.downcase == name.downcase }
   end
 
@@ -55,5 +55,13 @@ class ItemRepository
 
   def find_all_by_merchant_id(merchant_id)
     items.select { |item| item.merchant_id == merchant_id}
+  end
+
+  def find_merchant_from(merchant_id)
+    sales_engine.find_merchant_from(merchant_id)
+  end
+
+  def find_invoice_items_from(item_id)
+    sales_engine.find_invoice_items_from(item_id)
   end
 end

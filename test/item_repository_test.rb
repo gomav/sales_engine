@@ -51,8 +51,8 @@ class ItemRepositoryTest < Minitest::Test
       assert_equal 7, item.id
     end
 
-    def test_find_by_item_name
-      item = item_repository.find_by_item_name('Item')
+    def test_find_by_name
+      item = item_repository.find_by_name('Item')
       assert_equal 'Item', item.name
     end
 
@@ -63,8 +63,8 @@ class ItemRepositoryTest < Minitest::Test
 
     def test_find_by_unit_price
 
-      item = item_repository.find_by_unit_price('31163')
-      assert_equal '31163', item.unit_price
+      item = item_repository.find_by_unit_price(BigDecimal.new('31163')/100)
+      assert_equal BigDecimal.new('31163')/100, item.unit_price
     end
 
     def test_find_by_merchant_id
@@ -86,13 +86,25 @@ class ItemRepositoryTest < Minitest::Test
     end
 
     def test_find_all_by_unit_price
-      item = item_repository.find_all_by_unit_price('67076')
+      item = item_repository.find_all_by_unit_price(BigDecimal.new('67076')/100)
       assert_equal 2, item.size
     end
 
     def test_find_all_by_merchant_id
       items = item_repository.find_all_by_merchant_id(1)
       assert_equal 3, items.size
+    end
+
+    def test_it_delegates_merchant_to_sales_engine
+      sales_engine.expect(:find_merchant_from, nil, [1])
+      item_repository.find_merchant_from(1)
+      sales_engine.verify
+    end
+
+    def test_it_delegates_invoice_to_sales_engine
+      sales_engine.expect(:find_invoice_items_from, nil, [7])
+      item_repository.find_invoice_items_from(7)
+      sales_engine.verify
     end
 
 end
