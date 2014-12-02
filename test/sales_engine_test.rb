@@ -45,7 +45,7 @@ class SalesEngineTest < Minitest::Test
   end
 
   def test_a_sales_engine_has_a_transaction_repository
-    
+
     sales_engine.startup
     assert sales_engine.transaction_repository
   end
@@ -82,5 +82,9 @@ class SalesEngineTest < Minitest::Test
 
   def test_it_finds_transaction_from_invoice_id
     assert sales_engine.respond_to?(:find_transaction_from_invoice)
+  end
+
+  def test_it_finds_invoice_items_from_item_id
+    assert sales_engine.respond_to?(:find_invoice_items_from)
   end
 end
