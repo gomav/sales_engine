@@ -23,7 +23,7 @@ class SalesEngine
     startup_invoice_item
     startup_item
     startup_merchant
-    # startup_transaction
+    startup_transaction
   end
 
   def startup_customer
@@ -55,11 +55,11 @@ class SalesEngine
     #merchant = CsvReader.load_csv("merchants_fixture.csv")
     @merchant_repository = MerchantRepository.new(merchant, parent)
   end
-  #
-  # def startup_transaction
-  #   transaction = CsvReader.load_csv("transactions_fixture.rb")
-  #   @transaction_repository = TransactionRepository.new(transaction, parent)
-  # end
+
+  def startup_transaction
+    transaction = CsvReader.load_csv("transactions_fixture.csv")
+    @transaction_repository = TransactionRepository.new(transaction, parent)
+  end
 
   def find_invoices_from_customer(id)
     invoice_repository.find_all_by_customer_id(id)
