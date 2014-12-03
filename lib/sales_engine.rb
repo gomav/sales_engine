@@ -78,29 +78,26 @@ class SalesEngine
   def find_transactions_from_customer(id)
     all_invoices = find_invoices_from_customer(id)
     all_invoice_ids = all_invoices.map(&:id)
-    # all_transactions = all_invoice_ids.map do
-    #|invoice_id| transaction_repository.select do |transaction|
-    # transaction.invoice_id == invoice_id
-    # end
-    # end
-    # all_invoice_ids.each do |invoice_id|
-    #   all transactions << transaction_repository.select do |transaction|
-    # transaction.invoice_id == invoice_id
-    # end
-    # end
+    all_transactions = all_invoice_ids.map do |invoice_id|
+      transaction_repository.find_all_by_invoice_id(invoice_id)
+    end
   end
 
   def find_favorite_merchant_from_customer(id)
-    successes = find_transactions_from_customer(id).select do |transaction|
-      transaction.result == "success"
+    all_transactions = find_transactions_from_customer(id)
+    successes = []
+    all_transactions.each do |transactions|
+      transactions.each do |transaction|
+          successes << transaction unless transaction.result != "success"
+        end
     end
     success_invoice_ids = successes.map(&:invoice_id)
     success_merchant_ids = []
     success_invoice_ids.each do |invoice_id|
-      success_merchant_id << invoice_repository.merchant_id unless invoice_repository.id != invoice_id
+      success_merchant_ids << invoice_repository.find_all_by_id(invoice_id).map(&:merchant_id)
     end
-    fav_merch = success_merch_id.max_by{|id| success_merch_id.count(id) }
-    merchant_repository.find_by_merchant_id(fav_merch)
+    fav_merch = success_merchant_ids.max_by{|id| success_merchant_ids.count(id) }
+    merchant_repository.find_by_merchant_id(fav_merch.first)
   end
 
   def find_item_from(id)
@@ -124,7 +121,7 @@ class SalesEngine
   end
 
   def find_transaction_from_invoice(id)
-    # transaction_repository.find_by_invoice_id(id)
+     transaction_repository.find_by_invoice_id(id)
   end
 
   def find_invoice_items_from(item_id)
@@ -142,7 +139,4 @@ class SalesEngine
   def find_invoice_from_transaction(id)
     invoice_repository.find_by_id(id)
   end
-
-
-
 end
