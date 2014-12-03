@@ -150,10 +150,17 @@ class SalesEngine
     invoice_repository.find_by_id(id)
   end
 
-  def find_revenue_from_merchant(id)
-    all_invoices = merchant_repository.find_invoices_by_merchant(id)
-    invoice_ids = all_invoices.map(&:id)
+  def find_revenue_from_merchant(id, date)
 
+    all_invoices = merchant_repository.find_invoices_by_merchant(id)
+    if date == 'all'
+      invoice_ids = all_invoices.map(&:id)
+
+    else
+      invoice_ids = all_invoices.map do |invoice|
+        invoice.id unless invoice.created_at != date
+      end
+    end
     all_transactions = []
 
     invoice_ids.each do |invoice_id|
@@ -171,10 +178,9 @@ class SalesEngine
     successful_ids.each do |invoice_id|
       invoice_items << invoice_item_repository.find_all_by_invoice_id(invoice_id)
     end
-
     revenue = 0
     invoice_items.flatten.each do |invoice_item|
-      revenue = revenue + invoice_item.unit_price * invoice_item.quantity
+        revenue = revenue + invoice_item.unit_price * invoice_item.quantity
     end
     revenue
   end

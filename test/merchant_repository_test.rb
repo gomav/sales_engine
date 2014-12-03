@@ -74,8 +74,8 @@ def setup
   end
 
   def test_it_delegates_revenue_to_sales_engine
-    sales_engine.expect(:find_revenue_from_merchant, nil, [2])
-    merchant_repository.find_revenue(2)
+    sales_engine.expect(:find_revenue_from_merchant, nil, [2, 'all'])
+    merchant_repository.find_revenue_by_merchant(2, 'all')
     sales_engine.verify
   end
 end
