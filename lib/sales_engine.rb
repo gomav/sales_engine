@@ -8,10 +8,13 @@ require_relative 'transaction_repository'   # => true
 
 
 class SalesEngine
-  attr_reader :parent, :customer_repository, :invoice_repository,                # => :invoice_repository
-              :invoice_item_repository, :item_repository, :merchant_repository,  # => :merchant_repository
-              :transaction_repository                                            # => nil
-
+  attr_reader :parent,
+              :customer_repository,
+              :invoice_repository,
+              :invoice_item_repository,
+              :item_repository,
+              :merchant_repository,
+              :transaction_repository
 
   def initialize
     @parent = self
@@ -96,7 +99,9 @@ class SalesEngine
     success_invoice_ids.each do |invoice_id|
       success_merchant_ids << invoice_repository.find_all_by_id(invoice_id).map(&:merchant_id)
     end
-    fav_merch = success_merchant_ids.max_by{|id| success_merchant_ids.count(id) }
+    fav_merch = success_merchant_ids.max_by do |id|
+       success_merchant_ids.count(id)
+     end
     merchant_repository.find_by_merchant_id(fav_merch.first)
   end
 
