@@ -41,7 +41,7 @@ class MerchantRepository
     sales_engine.find_items_from_merchant(id)
   end
 
-  def find_invoices(id)
+  def find_invoices_by_merchant(id)
     sales_engine.find_invoices_from_merchant(id)
   end
 end
