@@ -42,8 +42,8 @@ def setup
     assert_equal 7, merchant.id
   end
 
-  def test_find_by_merchant_name
-    merchant = merchant_repository.find_by_merchant_name('Bernhard-Johns')
+  def test_find_by_name
+    merchant = merchant_repository.find_by_name('Bernhard-Johns')
     assert_equal 'Bernhard-Johns', merchant.name
   end
 
@@ -54,10 +54,22 @@ def setup
     assert_equal 1, merchant1.size
   end
 
-  def test_find_all_by_merchant_name
-    merchant = merchant_repository.find_all_by_merchant_name('Bernhard-Johns')
-    merchant1 = merchant_repository.find_all_by_merchant_name('Klein, Rempel and Jones')
+  def test_find_all_by_name
+    merchant = merchant_repository.find_all_by_name('Bernhard-Johns')
+    merchant1 = merchant_repository.find_all_by_name('Klein, Rempel and Jones')
     assert_equal 1, merchant.size
     assert_equal 1, merchant1.size
+  end
+
+  def test_it_delegates_items_to_sales_engine
+    sales_engine.expect(:find_items_from_merchant, nil, [7])
+    merchant_repository.find_items_by_merchant(7)
+    sales_engine.verify
+  end
+
+  def test_it_delegates_invoices_to_sales_engine
+    sales_engine.expect(:find_invoices_from_merchant, nil, [7])
+    merchant_repository.find_invoices(7)
+    sales_engine.verify
   end
 end

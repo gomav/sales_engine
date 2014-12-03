@@ -25,11 +25,11 @@ class MerchantRepository
     merchants.find { |merchant| merchant.id == id}
   end
 
-  def find_by_merchant_name(name)
+  def find_by_name(name)
     merchants.find { |merchant| merchant.name == name }
   end
 
-  def find_all_by_merchant_name(name)
+  def find_all_by_name(name)
     merchants.find_all { |merchant| merchant.name.downcase == name.downcase }
   end
 
@@ -37,11 +37,11 @@ class MerchantRepository
     merchants.find_all { |merchant| merchant.id == id}
   end
 
-  def items(id)
-    sales_engine.merchants_items(id)
+  def find_items_by_merchant(id)
+    sales_engine.find_items_from_merchant(id)
   end
 
-  def invoices(id)
-    sales_engine.merchant_invoices(id)
+  def find_invoices(id)
+    sales_engine.find_invoices_from_merchant(id)
   end
 end
