@@ -6,7 +6,7 @@ class MerchantTest < Minitest::Test
 
   def setup
     data = {
-      id: 3,
+      id: '3',
       name: 'Willms and Sons',
       created_at: '2012-03-27 14:53:59 UTC',
       updated_at: '2012-03-27 14:53:59 UTC'
@@ -26,7 +26,15 @@ class MerchantTest < Minitest::Test
     assert merchant.repository
   end
 
-  # def test_invoices
-  # end
+  def test_it_delegates_items_method_to_repository
+    repository.expect(:find_items_by_merchant, nil, [3])
+    merchant.items
+    repository.verify
+  end
 
+  def test_find_it_delegates_invoices_by_merchant
+    repository.expect(:find_invoices_by_merchant, nil, [3])
+    merchant.invoices
+    repository.verify
+  end
 end

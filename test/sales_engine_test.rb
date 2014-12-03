@@ -3,12 +3,12 @@ require_relative '../lib/sales_engine'
 
 class SalesEngineTest < Minitest::Test
 
-  attr_reader :sales_engine
+  attr_reader :sales_engine #:invoice_repository
 
 
   def setup
     @sales_engine = SalesEngine.new
-    sales_engine.startup
+    # @invoice_repository = Minitest::Mock.new
   end
 
   def test_a_sales_engine_can_be_instantiated
@@ -87,4 +87,18 @@ class SalesEngineTest < Minitest::Test
   def test_it_finds_invoice_items_from_item_id
     assert sales_engine.respond_to?(:find_invoice_items_from)
   end
+
+  def test_it_finds_items_from_merchant_id
+    assert sales_engine.respond_to?(:find_items_from_merchant)
+  end
+
+  def test_it_finds_invoices_from_merchant
+    assert sales_engine.respond_to?(:find_invoices_from_merchant)
+  end
+
+  # def test_it_delegates_invoice_to_invoice_repository
+  #   invoice_repository.expect(:find_all_by_merchant_id, nil, [7])
+  #   sales_engine.find_invoices_from_merchant(7)
+  #   invoice_repository.verify
+  # end
 end
