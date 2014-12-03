@@ -96,6 +96,10 @@ class SalesEngineTest < Minitest::Test
     assert sales_engine.respond_to?(:find_invoices_from_merchant)
   end
 
+  def test_it_finds_invoice_from_transaction
+    assert sales_engine.respond_to?(:find_invoice_from_transaction)
+  end
+
   # def test_it_delegates_invoice_to_invoice_repository
   #   invoice_repository.expect(:find_all_by_merchant_id, nil, [7])
   #   sales_engine.find_invoices_from_merchant(7)

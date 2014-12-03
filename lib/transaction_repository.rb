@@ -72,4 +72,9 @@ class TransactionRepository
   def find_all_by_result(success)
     transactions.select { |transaction| transaction.result == success }
   end
+
+  def find_invoice_from(invoice_id)
+    sales_engine.find_invoice_from(invoice_id)
+  end
+
 end
