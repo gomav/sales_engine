@@ -6,13 +6,8 @@ class SalesEngineTest < Minitest::Test
   attr_reader :sales_engine #:invoice_repository
 
 
-  def setup
-    @sales_engine = SalesEngine.new
-    # @invoice_repository = Minitest::Mock.new
-  end
-
-  def test_a_sales_engine_can_be_instantiated
-    assert SalesEngine.new
+  def sales_engine
+    @sales_engine ||= SalesEngine.new
   end
 
   def test_response_to_startup
@@ -20,33 +15,32 @@ class SalesEngineTest < Minitest::Test
   end
 
   def test_a_sales_engine_has_a_customer_repository
-    sales_engine.startup
+    sales_engine.startup_customer
     assert sales_engine.customer_repository
   end
 
   def test_a_sales_engine_has_an_invoice_repository
-    sales_engine.startup
+    sales_engine.startup_invoice
     assert sales_engine.invoice_repository
   end
 
   def test_a_sales_engine_has_an_invoice_item_repository
-    sales_engine.startup
+    sales_engine.startup_invoice_item
     assert sales_engine.invoice_item_repository
   end
 
   def test_a_sales_engine_has_a_item_repository
-    sales_engine.startup
+    sales_engine.startup_item
     assert sales_engine.item_repository
   end
 
   def test_a_sales_engine_has_a_merchant_repository
-    sales_engine.startup
+    sales_engine.startup_merchant
     assert sales_engine.merchant_repository
   end
 
   def test_a_sales_engine_has_a_transaction_repository
-
-    sales_engine.startup
+    sales_engine.startup_transaction
     assert sales_engine.transaction_repository
   end
 
@@ -104,6 +98,9 @@ class SalesEngineTest < Minitest::Test
     assert sales_engine.respond_to?(:find_revenue_from_merchant)
   end
 
+  def test_it_finds_favorite_customer_from_merchant
+    assert sales_engine.respond_to?(:find_favorite_customer_from_merchant)
+  end
   # def test_it_delegates_invoice_to_invoice_repository
   #   invoice_repository.expect(:find_all_by_merchant_id, nil, [7])
   #   sales_engine.find_invoices_from_merchant(7)

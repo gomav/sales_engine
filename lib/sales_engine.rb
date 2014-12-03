@@ -87,18 +87,23 @@ class SalesEngine
     end
   end
 
+  def find_transactions_from_merchant(id)
+    all_invoices = find_invoices_from_merchant(id)
+    all_invoice_ids = all_invoices.map(&:id)
+    all_transactions = all_invoice_ids.map do |invoice_id|
+      transaction_repository.find_all_by_invoice_id(invoice_id)
+    end
+  end
+
+  def find_successful_transactions(transactions)
+    transactions.flatten.select do |transaction|
+      transaction unless transaction.result != "success"
+    end
+  end
+
   def find_favorite_merchant_from_customer(id)
     all_transactions = find_transactions_from_customer(id)
-    # puts "this is all transactions[0].class #{all_transactions[0].class}"
-    successes = []
-    # @success_transactions_repository = TransactionRepository.new(all_transactions, parent)
-    #successes  = success_transactions_repository.find_by_result("success")
-
-    all_transactions.each do |transactions|
-      transactions.each do |transaction|
-          successes << transaction unless transaction.result != "success"
-        end
-    end
+    successes = find_successful_transactions(all_transactions)
     success_invoice_ids = successes.map(&:invoice_id)
     success_merchant_ids = []
     success_invoice_ids.each do |invoice_id|
@@ -183,5 +188,21 @@ class SalesEngine
         revenue = revenue + invoice_item.unit_price * invoice_item.quantity
     end
     revenue
+  end
+
+  def find_favorite_customer_from_merchant(id)
+
+    all_transactions = find_transactions_from_merchant(id)
+    successes = find_successful_transactions(all_transactions)
+    success_invoice_ids = successes.map(&:invoice_id)
+    success_customer_ids = []
+    success_invoice_ids.each do |invoice_id|
+      success_customer_ids << invoice_repository.find_all_by_id(invoice_id).map(&:customer_id)
+    end
+    fav_customer = success_customer_ids.max_by do |id|
+      success_customer_ids.count(id)
+    end
+    customer_repository.find_by_id(fav_customer.first)
+
   end
 end

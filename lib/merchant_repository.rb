@@ -46,7 +46,10 @@ class MerchantRepository
   end
 
   def find_revenue_by_merchant(id, date)
-
     sales_engine.find_revenue_from_merchant(id, date)
+  end
+
+  def find_favorite_customer_from(id)
+    sales_engine.find_favorite_customer_from_merchant(id)
   end
 end

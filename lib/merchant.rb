@@ -18,7 +18,10 @@ class Merchant
   end
 
   def revenue(date = 'all')
-
     repository.find_revenue_by_merchant(id, date)
+  end
+
+  def favorite_customer
+    repository.find_favorite_customer_from(id)
   end
 end

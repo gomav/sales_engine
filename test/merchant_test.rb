@@ -44,4 +44,9 @@ class MerchantTest < Minitest::Test
     repository.verify
   end
 
+  def test_it_delegates_favorite_customer_to_repository
+    repository.expect(:find_favorite_customer_from, nil, [3])
+    merchant.favorite_customer
+    repository.verify
+  end
 end
