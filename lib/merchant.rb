@@ -24,4 +24,8 @@ class Merchant
   def favorite_customer
     repository.find_favorite_customer_from(id)
   end
+
+  def customers_with_pending_invoices
+    repository.find_pending_customers_from(id)
+  end
 end

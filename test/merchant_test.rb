@@ -49,4 +49,10 @@ class MerchantTest < Minitest::Test
     merchant.favorite_customer
     repository.verify
   end
+
+  def test_it_delegates_pending_customers_to_repository
+    repository.expect(:find_pending_customers_from, nil, [3])
+    merchant.customers_with_pending_invoices
+    repository.verify
+  end
 end

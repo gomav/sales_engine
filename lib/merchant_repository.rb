@@ -52,4 +52,8 @@ class MerchantRepository
   def find_favorite_customer_from(id)
     sales_engine.find_favorite_customer_from_merchant(id)
   end
+
+  def find_pending_customers_from(id)
+    sales_engine.find_pending_customers_from_merchant(id)
+  end
 end

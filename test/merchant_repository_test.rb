@@ -84,4 +84,16 @@ def setup
     merchant_repository.find_favorite_customer_from(3)
     sales_engine.verify
   end
+
+  def test_it_delegates_favorite_customer_to_sales_engine
+    sales_engine.expect(:find_favorite_customer_from_merchant, nil, [3])
+    merchant_repository.find_favorite_customer_from(3)
+    sales_engine.verify
+  end
+
+  def test_it_delegates_pending_customers_to_sales_engine
+    sales_engine.expect(:find_pending_customers_from_merchant, nil, [3])
+    merchant_repository.find_pending_customers_from(3)
+    sales_engine.verify
+  end
 end

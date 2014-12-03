@@ -191,7 +191,6 @@ class SalesEngine
   end
 
   def find_favorite_customer_from_merchant(id)
-
     all_transactions = find_transactions_from_merchant(id)
     successes = find_successful_transactions(all_transactions)
     success_invoice_ids = successes.map(&:invoice_id)
@@ -203,6 +202,8 @@ class SalesEngine
       success_customer_ids.count(id)
     end
     customer_repository.find_by_id(fav_customer.first)
+  end
 
+  def find_pending_customers_from_merchant
   end
 end
