@@ -107,7 +107,7 @@ class SalesEngine
   end
 
   def find_customer_from(id)
-    customer_repository.find_by(id)
+    customer_repository.find_by_id(id)
   end
 
   def find_merchant_from(id)
