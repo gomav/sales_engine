@@ -204,6 +204,20 @@ class SalesEngine
     customer_repository.find_by_id(fav_customer.first)
   end
 
-  def find_pending_customers_from_merchant
+  def find_pending_customers_from_merchant(id)
+    all_transactions = find_transactions_from_merchant(id)
+    all_invoice_ids = all_transactions.flatten.map(&:invoice_id)
+    successes = find_successful_transactions(all_transactions)
+    success_invoice_ids = successes.map(&:invoice_id)
+    pending_invoice_ids = all_invoice_ids - success_invoice_ids
+    pending_customer_ids = []
+    pending_invoice_ids.each do |invoice_id|
+      pending_customer_ids << invoice_repository.find_all_by_id(invoice_id).map(&:customer_id)
+    end
+    pending_customers = []
+    pending_customer_ids.each do |customer|
+        pending_customers << customer_repository.find_by_id(customer[0])
+    end
+    pending_customers
   end
 end
