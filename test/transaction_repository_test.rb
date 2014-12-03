@@ -118,4 +118,10 @@ def setup
     assert_equal 2, transactions.size
     assert_equal 1, transactions1.size
   end
+
+  def test_it_delegates_invoice_to_sales_engine
+    sales_engine.expect(:find_invoice_from, nil, [3])
+    transaction_repository.find_invoice_from(3)
+    sales_engine.verify
+  end
 end

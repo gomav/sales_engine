@@ -4,7 +4,7 @@ class Transaction
 
   def initialize(data, repository)
     @id = data[:id].to_i
-    @invoice_id = data[:invoice_id]
+    @invoice_id = data[:invoice_id].to_i
     @credit_card_number = data[:credit_card_number]
     @credit_card_expiration = data[:credit_card_expiration]
     @result = data[:result]
@@ -14,6 +14,6 @@ class Transaction
   end
 
   def invoice
-    repository.invoice(invoice_id)
+    repository.find_invoice_from(invoice_id)
   end
 end
