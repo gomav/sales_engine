@@ -6,9 +6,28 @@ class TransactionRepository
 
   def initialize(transactions = '', sales_engine)
     @sales_engine = sales_engine
+    # @transactions ||= transactions.map do |transaction|
+    #   Transaction.new(transaction, self)
+    # end
     @transactions ||= transactions.map do |transaction|
-      Transaction.new(transaction, self)
-    end
+      puts "this is transaction class #{transaction.class}"
+        if transaction.class == Transaction
+          puts "in if statement"
+          transaction
+        else
+          puts "in else statement"
+          Transaction.new(transaction, self)
+        end
+      end
+
+    # @items = item_data_map do |row|
+    #   if is_a?(Item)
+    #     row
+    #   else
+    #     Item.new(row, self)
+    #   end
+    # end
+
   end
 
   def inspect

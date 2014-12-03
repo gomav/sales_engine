@@ -15,6 +15,7 @@ class SalesEngine
               :item_repository,
               :merchant_repository,
               :transaction_repository
+              # :success_transactions_repository
 
   def initialize
     @parent = self
@@ -88,7 +89,11 @@ class SalesEngine
 
   def find_favorite_merchant_from_customer(id)
     all_transactions = find_transactions_from_customer(id)
+    # puts "this is all transactions[0].class #{all_transactions[0].class}"
     successes = []
+    # @success_transactions_repository = TransactionRepository.new(all_transactions, parent)
+    #successes  = success_transactions_repository.find_by_result("success")
+
     all_transactions.each do |transactions|
       transactions.each do |transaction|
           successes << transaction unless transaction.result != "success"
