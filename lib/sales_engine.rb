@@ -149,4 +149,33 @@ class SalesEngine
   def find_invoice_from_transaction(id)
     invoice_repository.find_by_id(id)
   end
+
+  def find_revenue_from_merchant(id)
+    all_invoices = merchant_repository.find_invoices_by_merchant(id)
+    invoice_ids = all_invoices.map(&:id)
+
+    all_transactions = []
+
+    invoice_ids.each do |invoice_id|
+      all_transactions << transaction_repository.find_all_by_invoice_id(invoice_id)
+    end
+
+    successful_ids = []
+
+    all_transactions.flatten.each do |transaction|
+      successful_ids << transaction.invoice_id unless transaction.result != ('success')
+    end
+
+    invoice_items = []
+
+    successful_ids.each do |invoice_id|
+      invoice_items << invoice_item_repository.find_all_by_invoice_id(invoice_id)
+    end
+
+    revenue = 0
+    invoice_items.flatten.each do |invoice_item|
+      revenue = revenue + invoice_item.unit_price * invoice_item.quantity
+    end
+    revenue
+  end
 end

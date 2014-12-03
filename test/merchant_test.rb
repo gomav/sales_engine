@@ -37,4 +37,14 @@ class MerchantTest < Minitest::Test
     merchant.invoices
     repository.verify
   end
+
+  def test_it_delagates_revenue_to_repository
+    repository.expect(:find_revenue_by_merchant, nil, [3])
+    merchant.revenue
+    repository.verify
+  end
+
+  def test_revenue_method_accepts_date
+    assert merchant.revenue(Date.new(2001))
+  end
 end

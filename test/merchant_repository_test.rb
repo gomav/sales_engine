@@ -69,7 +69,13 @@ def setup
 
   def test_it_delegates_invoices_to_sales_engine
     sales_engine.expect(:find_invoices_from_merchant, nil, [7])
-    merchant_repository.find_invoices(7)
+    merchant_repository.find_invoices_by_merchant(7)
+    sales_engine.verify
+  end
+
+  def test_it_delegates_revenue_to_sales_engine
+    sales_engine.expect(:find_revenue_from_merchant, nil, [2])
+    merchant_repository.find_revenue(2)
     sales_engine.verify
   end
 end
