@@ -51,7 +51,7 @@ def setup
 
   def test_find_by_transaction_id
 
-    transaction = transaction_repository.find_by_transaction_id(1)
+    transaction = transaction_repository.find_by_id(1)
     assert_equal 1, transaction.id
   end
 

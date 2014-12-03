@@ -24,8 +24,8 @@ class InvoiceTest < Minitest::Test
     assert_equal 34696, invoice.customer_id
     assert_equal 955, invoice.merchant_id
     assert_equal "valid", invoice.status
-    assert_equal "2010-01-01", invoice.created_at
-    assert_equal "2015-01-01", invoice.updated_at
+    assert_equal Date.parse("2010-01-01"), invoice.created_at
+    assert_equal Date.parse("2015-01-01"), invoice.updated_at
   end
 
   def test_it_has_a_transactions_method
@@ -45,7 +45,7 @@ class InvoiceTest < Minitest::Test
   end
 
   def test_delegates_items_to_parent_repo
-    parent.expect(:find_items_from_invoice_items, nil, [45])
+    parent.expect(:find_items_from, nil, [45])
     invoice.items
     parent.verify
   end

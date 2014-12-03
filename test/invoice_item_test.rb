@@ -24,9 +24,9 @@ class InvoiceItemTest < Minitest::Test
     assert_equal 34696, invoice_item.item_id
     assert_equal 955, invoice_item.invoice_id
     assert_equal 2, invoice_item.quantity
-    assert_equal "3.15", invoice_item.unit_price
-    assert_equal "2010-01-01", invoice_item.created_at
-    assert_equal "2015-01-01", invoice_item.updated_at
+    assert_equal BigDecimal.new("3.15")/100, invoice_item.unit_price
+    assert_equal Date.parse("2010-01-01"), invoice_item.created_at
+    assert_equal Date.parse("2015-01-01"), invoice_item.updated_at
   end
 
   def test_it_delegates_invoice_to_parent_repo

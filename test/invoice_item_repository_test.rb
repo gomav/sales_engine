@@ -63,22 +63,22 @@ class InvoiceItemRepoTest < Minitest::Test
   end
 
   def test_find_all_by_unit_price
-    invoice_items = invoice_item_repo.find_all_by_unit_price("13635")
+    invoice_items = invoice_item_repo.find_all_by_unit_price(BigDecimal.new("13635")/100)
     invoice_items1 = invoice_item_repo.find_all_by_unit_price("5")
     assert_equal 1, invoice_items.size
     assert_equal 0, invoice_items1.size
   end
 
   def test_find_all_by_created_at
-    invoice_items = invoice_item_repo.find_all_by_created_at("2012-03-27 14:54:09 UTC")
-    invoice_items1 = invoice_item_repo.find_all_by_created_at("2016-01-01")
+    invoice_items = invoice_item_repo.find_all_by_created_at(Date.parse("2012-03-27 14:54:09 UTC"))
+    invoice_items1 = invoice_item_repo.find_all_by_created_at(Date.parse("2016-01-01"))
     assert_equal 3, invoice_items.size
     assert_equal 0, invoice_items1.size
   end
 
   def test_find_all_by_updated_at
-    invoice_items = invoice_item_repo.find_all_by_updated_at("2012-03-27 14:54:09 UTC")
-    invoice_items1 = invoice_item_repo.find_all_by_updated_at("2016-01-01")
+    invoice_items = invoice_item_repo.find_all_by_updated_at(Date.parse("2012-03-27 14:54:09 UTC"))
+    invoice_items1 = invoice_item_repo.find_all_by_updated_at(Date.parse("2016-01-01"))
     assert_equal 3, invoice_items.size
     assert_equal 0, invoice_items1.size
   end
