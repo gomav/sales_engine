@@ -1,5 +1,6 @@
 require_relative 'merchant'
 require_relative 'csv_reader'
+require 'date'
 
 class MerchantRepository
   attr_reader :merchants, :sales_engine  # => nil
@@ -59,5 +60,9 @@ class MerchantRepository
 
   def most_revenue(x)
     sales_engine.find_most_revenue_from_merchant_repository(x)
+  end
+
+  def revenue(date)
+    sales_engine.find_revenue_by_date_from_merchant_repository(date)
   end
 end

@@ -109,6 +109,10 @@ class SalesEngineTest < Minitest::Test
   def test_it_finds_most_revenue
     assert sales_engine.respond_to?(:find_most_revenue_from_merchant_repository)
   end
+
+  def test_it_finds_revenue_by_date
+    assert sales_engine.respond_to?(:find_revenue_by_date_from_merchant_repository)
+  end
   # def test_it_delegates_invoice_to_invoice_repository
   #   invoice_repository.expect(:find_all_by_merchant_id, nil, [7])
   #   sales_engine.find_invoices_from_merchant(7)
