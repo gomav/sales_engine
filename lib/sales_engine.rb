@@ -135,8 +135,8 @@ class SalesEngine
     merchant_repository.find_by_merchant_id(id)
   end
 
-  def find_transaction_from_invoice(id)
-     transaction_repository.find_by_invoice_id(id)
+  def find_transactions_from_invoice(id)
+     transaction_repository.find_all_by_invoice_id(id)
   end
 
   def find_invoice_items_from(item_id)
@@ -160,28 +160,22 @@ class SalesEngine
     all_invoices = merchant_repository.find_invoices_by_merchant(id)
     if date == 'all'
       invoice_ids = all_invoices.map(&:id)
-
     else
       invoice_ids = all_invoices.map do |invoice|
         invoice.id unless invoice.created_at != date
       end
     end
-    all_transactions = []
 
-    invoice_ids.each do |invoice_id|
-      all_transactions << transaction_repository.find_all_by_invoice_id(invoice_id)
+    all_transactions = invoice_ids.map do |invoice_id|
+      transaction_repository.find_all_by_invoice_id(invoice_id)
     end
 
-    successful_ids = []
-
-    all_transactions.flatten.each do |transaction|
-      successful_ids << transaction.invoice_id unless transaction.result != ('success')
+    successful_ids = all_transactions.flatten.map do |transaction|
+       transaction.invoice_id unless transaction.result != ('success')
     end
 
-    invoice_items = []
-
-    successful_ids.each do |invoice_id|
-      invoice_items << invoice_item_repository.find_all_by_invoice_id(invoice_id)
+    invoice_items = successful_ids.map do |invoice_id|
+      invoice_item_repository.find_all_by_invoice_id(invoice_id)
     end
     return (invoice_items)
   end
@@ -221,15 +215,13 @@ class SalesEngine
     successes = find_successful_transactions(all_transactions)
     success_invoice_ids = successes.map(&:invoice_id)
     pending_invoice_ids = all_invoice_ids - success_invoice_ids
-    pending_customer_ids = []
-    pending_invoice_ids.each do |invoice_id|
-      pending_customer_ids << invoice_repository.find_all_by_id(invoice_id).map(&:customer_id)
+    pending_customer_ids = pending_invoice_ids.map do |invoice_id|
+      invoice_repository.find_all_by_id(invoice_id).map(&:customer_id)
     end
-    pending_customers = []
-    pending_customer_ids.each do |customer|
-        pending_customers << customer_repository.find_by_id(customer[0])
+
+    pending_customers = pending_customer_ids.map do |customer|
+      customer_repository.find_by_id(customer[0])
     end
-    pending_customers
   end
 
   def merchant_revenue(date="all")
@@ -268,5 +260,8 @@ class SalesEngine
 
   def find_revenue_by_date_from_merchant_repository(date)
     merchant_revenue(date).collect {|i| i[0]}.reduce(:+)
+  end
+
+  def find_most_revenue_items
   end
 end

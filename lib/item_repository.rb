@@ -64,4 +64,8 @@ class ItemRepository
   def find_invoice_items_from(item_id)
     sales_engine.find_invoice_items_from(item_id)
   end
+
+  def most_revenue(x)
+    sales_engine.find_most_revenue_items(x)
+  end
 end
