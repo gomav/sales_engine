@@ -56,4 +56,8 @@ class MerchantRepository
   def find_pending_customers_from(id)
     sales_engine.find_pending_customers_from_merchant(id)
   end
+
+  def most_revenue(x)
+    sales_engine.find_most_revenue_from_merchant_repository(x)
+  end
 end

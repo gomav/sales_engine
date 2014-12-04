@@ -105,6 +105,10 @@ class SalesEngineTest < Minitest::Test
   def test_it_finds_pending_customers_from_merchant
     assert sales_engine.respond_to?(:find_pending_customers_from_merchant)
   end
+
+  def test_it_finds_most_revenue
+    assert sales_engine.respond_to?(:find_most_revenue_from_merchant_repository)
+  end
   # def test_it_delegates_invoice_to_invoice_repository
   #   invoice_repository.expect(:find_all_by_merchant_id, nil, [7])
   #   sales_engine.find_invoices_from_merchant(7)

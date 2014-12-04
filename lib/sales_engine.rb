@@ -220,4 +220,18 @@ class SalesEngine
     end
     pending_customers
   end
+
+  def find_most_revenue_from_merchant_repository(x)
+    merchant_revenue = []
+    merchant_repository.all.each do |merchant|
+      merchant_id = merchant.id
+      merchant_revenue << [find_revenue_from_merchant(merchant_id, 'all'),merchant_id]
+    end
+    merchant_ids = merchant_revenue.sort[-x..-1].collect {|i| i[1]}
+    puts "merchants id #{merchant_ids}"
+    merchants = merchant_ids.map do |merchant_id|
+      merchant_repository.find_by_merchant_id(merchant_id)
+    end
+    merchants.reverse
+  end
 end

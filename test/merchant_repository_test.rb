@@ -96,4 +96,10 @@ def setup
     merchant_repository.find_pending_customers_from(3)
     sales_engine.verify
   end
+
+  def test_it_delegates_most_revenue_to_sales_engine
+    sales_engine.expect(:find_most_revenue_from_merchant_repository, nil, [2])
+    merchant_repository.most_revenue(2)
+    sales_engine.verify
+  end
 end
