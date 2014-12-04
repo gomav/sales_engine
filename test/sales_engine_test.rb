@@ -110,6 +110,10 @@ class SalesEngineTest < Minitest::Test
     assert sales_engine.respond_to?(:find_most_revenue_from_merchant_repository)
   end
 
+  def test_it_finds_most_items
+    assert sales_engine.respond_to?(:find_most_items_sold_from_merchant_repository)
+  end
+
   def test_it_finds_revenue_by_date
     assert sales_engine.respond_to?(:find_revenue_by_date_from_merchant_repository)
   end
