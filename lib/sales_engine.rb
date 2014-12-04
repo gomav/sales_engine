@@ -105,9 +105,8 @@ class SalesEngine
     all_transactions = find_transactions_from_customer(id)
     successes = find_successful_transactions(all_transactions)
     success_invoice_ids = successes.map(&:invoice_id)
-    success_merchant_ids = []
-    success_invoice_ids.each do |invoice_id|
-      success_merchant_ids << invoice_repository.find_all_by_id(invoice_id).map(&:merchant_id)
+    success_merchant_ids = success_invoice_ids.map do |invoice_id|
+       invoice_repository.find_all_by_id(invoice_id).map(&:merchant_id)
     end
     fav_merch = success_merchant_ids.max_by do |id|
        success_merchant_ids.count(id)
@@ -199,9 +198,8 @@ class SalesEngine
     all_transactions = find_transactions_from_merchant(id)
     successes = find_successful_transactions(all_transactions)
     success_invoice_ids = successes.map(&:invoice_id)
-    success_customer_ids = []
-    success_invoice_ids.each do |invoice_id|
-      success_customer_ids << invoice_repository.find_all_by_id(invoice_id).map(&:customer_id)
+    success_customer_ids = success_invoice_ids.map do |invoice_id|
+       invoice_repository.find_all_by_id(invoice_id).map(&:customer_id)
     end
     fav_customer = success_customer_ids.max_by do |id|
       success_customer_ids.count(id)
