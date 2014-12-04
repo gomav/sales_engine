@@ -262,6 +262,39 @@ class SalesEngine
     merchant_revenue(date).collect {|i| i[0]}.reduce(:+)
   end
 
-  def find_most_revenue_items
+  def find_most_revenue_items(x)
+
+    all_invoices = invoice_repository.all
+      invoice_ids = all_invoices.map(&:id)
+    all_transactions = invoice_ids.map do |invoice_id|
+      transaction_repository.find_all_by_invoice_id(invoice_id)
+    end
+
+    successful_ids = all_transactions.flatten.map do |transaction|
+       transaction.invoice_id unless transaction.result != ('success')
+    end
+
+    invoice_items = successful_ids.map do |invoice_id|
+      invoice_item_repository.find_all_by_invoice_id(invoice_id)
+    end
+
+    items_revenue = invoice_items.flatten.map do |id|
+      [id.quantity * id.unit_price,id.item_id ]
+    end
+
+    item_hash = items_revenue.group_by{ |n| n[1] }
+    item_revenue = []
+    for n in 1..10000
+
+      unless item_hash[n].nil?
+        item_revenue << [item_hash[n].collect{ |n| n[0] }.reduce(:+), item_hash[n].flatten[1]]
+      end
+    end
+
+    item_ids = item_revenue.sort[-x..-1].collect {|i| i[1]}
+    items = item_ids.map do |item_id|
+      item_repository.find_by_item_id(item_id)
+    end
+    return items.reverse
   end
 end
